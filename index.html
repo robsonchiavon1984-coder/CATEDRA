@@ -298,7 +298,8 @@ em.lat{font-style:italic}
 @media (max-width:1100px){.cad{grid-template-columns:250px 1fr}.page .gut{right:4px;top:-30px;flex-direction:row}}
 @media (max-width:900px){
   #app{grid-template-columns:1fr}
-  #side{position:fixed;inset:0 auto 0 0;width:284px;z-index:40;transform:translateX(-100%);transition:transform .2s;box-shadow:0 0 40px rgba(0,0,0,.25)}
+  #side{position:fixed;inset:0 auto 0 0;width:284px;z-index:40;transform:translateX(-100%);transition:transform .2s}
+  #side.open,.toc.open{box-shadow:0 0 40px rgba(0,0,0,.25)}
   #side.open{transform:none}
   #menuBtn{display:inline-grid}
   #top{padding:8px 10px;gap:6px;flex-wrap:wrap}
@@ -308,7 +309,7 @@ em.lat{font-style:italic}
   .kpis{grid-template-columns:1fr 1fr}
   .grid2,.grid3,.prop .pgrid,.prop .cmp{grid-template-columns:1fr}
   .cad{grid-template-columns:1fr}
-  .toc{position:fixed;inset:0 auto 0 0;width:min(340px,88vw);z-index:39;transform:translateX(-100%);transition:transform .2s;box-shadow:0 0 40px rgba(0,0,0,.25)}
+  .toc{position:fixed;inset:0 auto 0 0;width:min(340px,88vw);z-index:39;transform:translateX(-100%);transition:transform .2s}
   .toc.open{transform:none}
   .page{width:auto;max-width:none;margin:10px;padding:18px 16px 30px;min-height:0;font-size:calc(var(--dfs,12pt) * .95)}
   .page .gut{position:static;opacity:1;flex-direction:row;justify-content:flex-end;margin-top:4px}
@@ -320,6 +321,54 @@ em.lat{font-style:italic}
   .lens button{padding:5px 8px}
 }
 .scrim{position:fixed;inset:0;background:rgba(0,0,0,.3);z-index:35}
+
+/* ======== v2: um arquivo por ponto, estilos por tipo, barra de formatação completa ======== */
+.dtool{flex-direction:column;align-items:stretch;gap:6px;padding:8px 14px}
+.dtool .dtl1{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.dtool .dtl1 .icon-btn{font-size:20px;line-height:1}
+.dtool .dtl1 .icon-btn:disabled{opacity:.3;cursor:default}
+.fmt{display:flex;flex-wrap:wrap;gap:2px;align-items:center;border-top:1px solid var(--line);padding-top:6px}
+.fmt .sepv{width:1px;height:20px;background:var(--line2);margin:0 4px}
+.fmt select{border:1px solid var(--line2);background:var(--panel);border-radius:6px;padding:3px 6px;font-size:12.5px;height:28px;color:var(--ink)}
+.fmt #fFonte{width:140px}
+.fmt button{min-width:28px;height:28px}
+.page .d-cover{border-bottom:1px solid #d7d2c8;padding-bottom:12pt;margin-bottom:16pt}
+.page .d-cover h1{margin:2pt 0 0;font-size:26pt}
+.page .d-cover h1 .pn{color:var(--pc,#1f2a44)}
+.page .d-cover .pt-tit{font:400 15pt/1.3 var(--doc);color:#1f2a44;margin:2pt 0 8pt}
+.page .d-cover .ementa{margin:0 0 8pt}
+.page .it{margin:0 0 12pt;padding:6pt 10pt;border-radius:3px}
+.page .it:hover{background:var(--tf,#faf7f0);filter:brightness(.99)}
+.page .it.f-barra{border-left:3px solid var(--tc);background:var(--tf)}
+.page .it.f-nota{border-left:6px solid var(--tc);background:var(--tf)}
+.page .it.f-caixa{border:1px solid color-mix(in srgb,var(--tc) 45%,#fff);background:var(--tf)}
+.page .it.f-tracejada{border:1px dashed var(--tc);background:var(--tf)}
+.page .it.f-plana{padding-left:0;padding-right:0}
+.page .it .ih .tg{font:600 8.5pt/1 var(--ui);letter-spacing:.09em;text-transform:uppercase;color:var(--tc);border:1px solid color-mix(in srgb,var(--tc) 40%,transparent);border-radius:3px;padding:2px 5px;align-self:center;font-variant:normal}
+.page .it .ih .tt{font-variant:small-caps;letter-spacing:.03em}
+.page .it .ic h4,.prop .ed h4{font:400 1.08em/1.3 var(--doc);color:var(--tc,#1f2a44);margin:8pt 0 3pt}
+.page .it .ic hr,.prop .ed hr{border:0;border-top:1px solid #bfb8aa;margin:8pt 0}
+.page h3.tp{color:var(--tc,#8a5a14);border-bottom-color:color-mix(in srgb,var(--tc,#8a5a14) 25%,#fff)}
+.page h4.as[style]{color:var(--tc)}
+.page .nomat{flex-wrap:wrap;padding:14pt;border:1.5px dashed #ddd5c4;border-radius:6px;justify-content:center}
+.page .gut{right:-46px}
+.page .gut button{font:600 14px var(--ui)}
+@media print{
+  #printArea .page{break-after:page;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  #printArea .page:last-child{break-after:auto}
+  #printArea .it{break-inside:avoid-page}
+}
+@media (max-width:900px){
+  .fmt{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}
+  .fmt::-webkit-scrollbar{display:none}
+  .fmt>*{flex:none}
+  .dtool .dtl1{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}
+  .dtool .dtl1>*{flex:none}
+  .page .gut{right:auto}
+}
+.estilos-t{display:grid;grid-template-columns:1fr 70px 70px 170px;gap:8px 12px;align-items:center}
+.estilos-t input[type=color]{width:60px;height:30px;border:1px solid var(--line2);border-radius:6px;padding:2px;background:var(--panel)}
+.amostra{padding:6px 10px;font:12pt/1.3 var(--doc);color:#1b1b1b;border-radius:3px}
 
 </style>
 </head>
@@ -424,32 +473,86 @@ const TIPO_CURTO = { lei:'Lei', sumula_vinculante:'SV', sumula:'Súmula', tema_s
 const TIPO_ORD = Object.fromEntries(TIPOS.map((t, i) => [t[0], i]));
 
 /* ---------- sanitização de HTML (conteúdo vindo da IA, de arquivos ou de backups) ---------- */
-const TAGS_OK = new Set(['P','BR','EM','I','STRONG','B','U','MARK','UL','OL','LI','BLOCKQUOTE','TABLE','THEAD','TBODY','TR','TD','TH','SUB','SUP','S','H5','H6','SPAN','DIV']);
+const TAGS_OK = new Set(['P','BR','EM','I','STRONG','B','U','MARK','UL','OL','LI','BLOCKQUOTE','TABLE','THEAD','TBODY','TR','TD','TH','SUB','SUP','S','STRIKE','H4','H5','H6','SPAN','DIV','FONT','HR']);
+const ESTILOS_OK = ['color', 'background-color', 'font-size', 'font-family', 'text-align', 'margin-left', 'text-indent', 'text-decoration-line', 'font-weight', 'font-style', 'text-decoration'];
+const FONT_TAM = { 1: '8pt', 2: '10pt', 3: '12pt', 4: '14pt', 5: '18pt', 6: '24pt', 7: '36pt' };
 function limpaHTML(html, opts = {}) {
   const doc = new DOMParser().parseFromString('<div>' + (html || '') + '</div>', 'text/html');
+  const estilo = (el) => {
+    const out = [];
+    for (const p of ESTILOS_OK) {
+      let v = el.style.getPropertyValue(p); if (!v) continue;
+      if (/url\(|expression/i.test(v)) continue;
+      if (p === 'font-weight') { if (/bold|[6-9]00/.test(v) && !opts.semNegrito) out.push('font-weight:bold'); continue; }
+      if (p === 'font-style') { if (/italic/.test(v)) out.push('font-style:italic'); continue; }
+      if (p === 'text-decoration' || p === 'text-decoration-line') { const u = /underline/.test(v), l = /line-through/.test(v); if (u || l) out.push('text-decoration:' + [u && 'underline', l && 'line-through'].filter(Boolean).join(' ')); continue; }
+      if (p === 'background-color' && /transparent|rgba\(0, 0, 0, 0\)/.test(v)) continue;
+      out.push(p + ':' + v.replace(/["']/g, "'"));
+    }
+    return [...new Set(out)].join(';');
+  };
   const walk = (node) => {
     for (const ch of [...node.childNodes]) {
       if (ch.nodeType === 1) {
         if (!TAGS_OK.has(ch.tagName)) {
-          if (['SCRIPT','STYLE','IFRAME','OBJECT','EMBED','LINK','META'].includes(ch.tagName)) { ch.remove(); continue; }
+          if (['SCRIPT','STYLE','IFRAME','OBJECT','EMBED','LINK','META','svg','SVG','IMG','BUTTON','INPUT'].includes(ch.tagName)) { ch.remove(); continue; }
           walk(ch); ch.replaceWith(...ch.childNodes); continue;
         }
-        const align = ch.style && ch.style.textAlign;
-        const bg = ch.style && ch.style.backgroundColor;
+        if (ch.tagName === 'FONT') {
+          const sp = document.createElement('span');
+          const st = [];
+          if (ch.getAttribute('color')) st.push('color:' + ch.getAttribute('color'));
+          if (ch.getAttribute('face')) st.push("font-family:'" + ch.getAttribute('face').replace(/["']/g, '') + "'");
+          if (ch.getAttribute('size')) st.push('font-size:' + (FONT_TAM[ch.getAttribute('size')] || '12pt'));
+          if (ch.style.cssText) st.push(ch.style.cssText);
+          sp.style.cssText = st.join(';'); sp.append(...ch.childNodes); ch.replaceWith(sp); walk(sp);
+          const e2 = estilo(sp); for (const a of [...sp.attributes]) sp.removeAttribute(a.name); if (e2) sp.setAttribute('style', e2); else sp.replaceWith(...sp.childNodes);
+          continue;
+        }
+        if (ch.tagName === 'STRIKE') { const s2 = document.createElement('s'); s2.append(...ch.childNodes); ch.replaceWith(s2); walk(s2); continue; }
+        const st = estilo(ch);
         for (const a of [...ch.attributes]) ch.removeAttribute(a.name);
-        if (align && ['left','right','center','justify'].includes(align)) ch.style.textAlign = align;
-        if (ch.tagName === 'SPAN' && bg) { const m = document.createElement('mark'); m.append(...ch.childNodes); ch.replaceWith(m); walk(m); continue; }
-        if (opts.semNegrito && (ch.tagName === 'STRONG' || ch.tagName === 'B')) { walk(ch); ch.replaceWith(...ch.childNodes); continue; }
-        if (ch.tagName === 'I') { const e = document.createElement('em'); e.append(...ch.childNodes); ch.replaceWith(e); walk(e); continue; }
-        if (ch.tagName === 'DIV') { const p = document.createElement('p'); p.append(...ch.childNodes); ch.replaceWith(p); walk(p); continue; }
+        if (opts.semNegrito && (ch.tagName === 'STRONG' || ch.tagName === 'B') && opts.semNegritoForte) { walk(ch); ch.replaceWith(...ch.childNodes); continue; }
+        if (ch.tagName === 'I') { const e = document.createElement('em'); e.append(...ch.childNodes); if (st) e.setAttribute('style', st); ch.replaceWith(e); walk(e); continue; }
+        if (ch.tagName === 'B') { const e = document.createElement('strong'); e.append(...ch.childNodes); ch.replaceWith(e); walk(e); continue; }
+        if (ch.tagName === 'DIV') { const p = document.createElement('p'); p.append(...ch.childNodes); if (st) p.setAttribute('style', st); ch.replaceWith(p); walk(p); continue; }
+        if (ch.tagName === 'SPAN' && !st) { walk(ch); ch.replaceWith(...ch.childNodes); continue; }
+        if (st) ch.setAttribute('style', st);
         walk(ch);
       } else if (ch.nodeType !== 3) ch.remove();
     }
   };
   const root = doc.body.firstChild; walk(root);
   let out = root.innerHTML.trim();
-  if (out && !/^<(p|ul|ol|blockquote|table|h5|h6)/i.test(out)) out = '<p>' + out + '</p>';
+  if (out && !/^<(p|ul|ol|blockquote|table|h4|h5|h6|hr)/i.test(out)) out = '<p>' + out + '</p>';
   return out;
+}
+/* ---------- estilos visuais por tipo de conteúdo ---------- */
+const ESTILO_PADRAO = {
+  lei:                 { cor: '#2f4f8f', fundo: '#f1f4fa', forma: 'barra' },
+  sumula_vinculante:   { cor: '#8a5a14', fundo: '#fbf4e4', forma: 'caixa' },
+  sumula:              { cor: '#a0701a', fundo: '#fdf8ec', forma: 'caixa' },
+  tema_stf:            { cor: '#7a2e3a', fundo: '#fbf0f1', forma: 'barra' },
+  tema_stj:            { cor: '#1f6f5c', fundo: '#edf6f2', forma: 'barra' },
+  precedente_tribunal: { cor: '#4b5d23', fundo: '#f3f6ea', forma: 'barra' },
+  jurisprudencia:      { cor: '#55606e', fundo: '#f5f6f7', forma: 'barra' },
+  enunciado:           { cor: '#6b4c9a', fundo: '#f5f1fb', forma: 'tracejada' },
+  doutrina:            { cor: '#1f2a44', fundo: '#ffffff', forma: 'plana' },
+  questao:             { cor: '#b45309', fundo: '#fff6e8', forma: 'caixa' },
+  anotacao:            { cor: '#8a7b55', fundo: '#fffbe3', forma: 'nota' },
+};
+const FORMAS = { barra: 'Barra lateral', caixa: 'Caixa', tracejada: 'Caixa tracejada', plana: 'Sem moldura', nota: 'Nota (barra grossa)' };
+const estiloTipo = (t) => Object.assign({}, ESTILO_PADRAO[t] || ESTILO_PADRAO.doutrina, (S.cfg.estilos || {})[t] || {});
+function cssEstiloTipo(t) { const e = estiloTipo(t); return `--tc:${e.cor};--tf:${e.fundo}`; }
+/** cor css (hex, rgb, nome) -> hex sem # */
+function corHex(c) {
+  if (!c) return null; c = String(c).trim();
+  let m = c.match(/^#([0-9a-f]{3}|[0-9a-f]{6})$/i);
+  if (m) return (m[1].length === 3 ? m[1].split('').map(x => x + x).join('') : m[1]).toUpperCase();
+  m = c.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?/i);
+  if (m) { if (m[4] !== undefined && +m[4] === 0) return null; return [m[1], m[2], m[3]].map(x => (+x).toString(16).padStart(2, '0')).join('').toUpperCase(); }
+  const cv = document.createElement('canvas').getContext('2d'); cv.fillStyle = '#000'; cv.fillStyle = c; const v = cv.fillStyle;
+  return /^#/.test(v) ? v.slice(1).toUpperCase() : null;
 }
 const textoPlano = (html) => { const d = document.createElement('div'); d.innerHTML = html || ''; return (d.textContent || '').replace(/\s+/g, ' ').trim(); };
 const textoParaHTML = (t) => String(t || '').split(/\n{2,}/).map(p => p.trim()).filter(Boolean).map(p => '<p>' + h(p).replace(/\n/g, ' ') + '</p>').join('');
@@ -805,7 +908,11 @@ Seja rigoroso: marque "repetido" apenas quando nada relevante se acrescenta.
 Responda SOMENTE com JSON no formato:
 {"unidades":[{"tipo":"","titulo":"","ref":"","assunto":"","disc":"","pontos":[],"html":"","status":"novo","relacionado":null,"acrescimo":"","nota":""}]}`;
 }
-function promptOrganizador({ trecho, discs, candidatos, dicas }) {
+function blocoPontoFixo(pid) {
+  const x = PONTO.get(pid); if (!x) return '';
+  return `\nPONTO DE DESTINO FIXADO PELO ESTUDANTE: todo o TEXTO refere-se ao ponto ${pid} (${x.e.sigla}, ponto ${rotuloPonto(x.p)}: ${x.p.t.slice(0, 400)}). Inclua "${pid}" em "pontos" de TODAS as unidades e acrescente os pontos equivalentes dos demais editais. Use esse ponto como referência para definir os assuntos.\n`;
+}
+function promptOrganizador({ trecho, discs, candidatos, dicas, pontoFixo }) {
   const blocoPontos = discs.map(d => {
     const linhas = pontosCandidatos(d).map(({ e, p }) => `${p.id} | ${e.sigla} ${p.sec ? p.sec + ' ' : ''}${p.n} | ${p.t.length > 260 ? p.t.slice(0, 257) + '…' : p.t}`);
     return `## ${discNome(d)} (disc="${d}")\n` + (linhas.length ? linhas.join('\n') : '(nenhum ponto de edital cadastrado para esta disciplina)');
@@ -822,7 +929,7 @@ ASSUNTOS EXISTENTES: ${assuntos.length ? assuntos.join('; ') : '(nenhum)'}
 
 MATERIAL EXISTENTE POTENCIALMENTE RELACIONADO:
 ${mat}
-${dicas ? '\nINDICAÇÕES DO ESTUDANTE: ' + dicas + '\n' : ''}
+${pontoFixo ? blocoPontoFixo(pontoFixo) : ''}${dicas ? '\nINDICAÇÕES DO ESTUDANTE: ' + dicas + '\n' : ''}
 TEXTO A ORGANIZAR:
 """
 ${trecho}
@@ -902,18 +1009,18 @@ async function leArquivo(file, opts = {}) {
 const b64DeBuffer = (buf) => { const b = new Uint8Array(buf); let s = ''; for (let i = 0; i < b.length; i += 0x8000) s += String.fromCharCode.apply(null, b.subarray(i, i + 0x8000)); return btoa(s); };
 
 /* ---------- tela ---------- */
-const Ingest = { arquivos: [], rodando: null };
-function viewInserir() {
+const Ingest = { arquivos: [], rodando: null, ponto: null, fechaModal: null };
+function formInsercao(ponto) {
   const d = S.estrutura.disciplinas;
+  const x = ponto ? PONTO.get(ponto) : null;
+  const discFix = x ? (Cad.disc || x.disc) : null;
   const semChave = !IA.pronto();
-  $('#view').innerHTML = `<div class="wrap">
-    <h1 class="pg">Inserir material</h1>
-    <p class="sub">Cole o texto ou envie arquivos. A IA recorta o conteúdo, classifica por disciplina, ponto do edital, assunto e tipo, e compara com o que você já tem. Nada entra no seu material sem passar pela triagem.</p>
-    ${semChave ? `<div class="card" style="border-color:var(--warn);background:var(--warnbg);color:var(--warn);margin-bottom:16px">Nenhuma chave de API configurada. <a href="#" data-go="config">Configure a chave do Claude ou do Gemini</a> para a análise automática, ou use a inserção manual abaixo.</div>` : ''}
+  return `${semChave ? `<div class="card" style="border-color:var(--warn);background:var(--warnbg);color:var(--warn);margin-bottom:16px">Nenhuma chave de API configurada. <a href="#" data-go="config">Configure a chave do Claude ou do Gemini</a> para a análise automática, ou use a inserção manual.</div>` : ''}
+    ${x ? `<div class="card" style="margin-bottom:14px;border-left:4px solid ${x.e.cor}"><div class="small muted">Destino fixado</div><div style="font:600 16px/1.3 var(--doc);margin-top:2px">${h(discNome(discFix))} · ${h(x.e.sigla)} · Ponto ${h(rotuloPonto(x.p))} — ${h(tituloPonto(x.p))}</div><div class="small muted" style="margin-top:4px">A IA tratará todo o material como pertencente a este ponto e indicará também os pontos equivalentes nos outros editais.</div></div>` : ''}
     <div class="grid2">
       <div>
         <div class="seg" id="modoIn" style="margin-bottom:10px"><button class="on" data-m="colar">Colar texto</button><button data-m="arq">Arquivos</button></div>
-        <div id="inColar"><textarea class="in" id="txtIn" style="min-height:300px;font:15px/1.55 var(--doc)" placeholder="Cole aqui o material (resumo, lei comentada, súmulas, informativo, capítulo de doutrina…)"></textarea></div>
+        <div id="inColar"><textarea class="in" id="txtIn" style="min-height:${x ? 240 : 300}px;font:15px/1.55 var(--doc)" placeholder="Cole aqui o material (resumo, lei comentada, súmulas, informativo, capítulo de doutrina…)"></textarea></div>
         <div id="inArq" class="hidden">
           <div class="drop" id="drop"><svg class="i" style="width:28px;height:28px"><use href="#i-up"/></svg><div style="margin-top:6px">Arraste arquivos aqui ou <u>clique para escolher</u></div><div class="small" style="margin-top:4px">PDF, Word (.docx), TXT, Markdown ou HTML</div></div>
           <input type="file" id="fileIn" multiple accept=".pdf,.docx,.txt,.md,.html,.htm" class="hidden">
@@ -923,13 +1030,13 @@ function viewInserir() {
       <div>
         <div class="card">
           <label class="f">Identificação da fonte</label>
-          <input class="in" id="fonteIn" placeholder="Ex.: Resumo Dizer o Direito — Info 812; Apostila CERS LINDB">
+          <input class="in" id="fonteIn" placeholder="Ex.: Resumo Dizer o Direito — Info 812; Apostila LINDB">
           <div style="height:12px"></div>
           <label class="f">Disciplina</label>
-          <select class="in" id="discIn"><option value="auto">Detectar automaticamente</option>${d.map(x => `<option value="${x.id}" ${S.discAtual === x.id ? 'selected' : ''}>${h(x.nome)}</option>`).join('')}</select>
+          ${x ? `<select class="in" id="discIn" disabled><option value="${discFix}">${h(discNome(discFix))}</option></select>` : `<select class="in" id="discIn"><option value="auto">Detectar automaticamente</option>${d.map(y => `<option value="${y.id}" ${S.discAtual === y.id ? 'selected' : ''}>${h(y.nome)}</option>`).join('')}</select>`}
           <div style="height:12px"></div>
           <label class="f">Indicações para a IA (opcional)</label>
-          <input class="in" id="dicaIn" placeholder="Ex.: tudo é jurisprudência do STJ; material refere-se ao ponto 9">
+          <input class="in" id="dicaIn" placeholder="Ex.: tudo é jurisprudência do STJ; separar por artigo">
           <div style="height:12px"></div>
           <div class="grid2">
             <div><label class="f">Tamanho de cada trecho</label><select class="in" id="tamIn">${[6000, 9000, 12000, 16000, 20000].map(n => `<option value="${n}" ${S.cfg.tamanhoTrecho == n ? 'selected' : ''}>${nfmt(n)} caracteres</option>`).join('')}</select></div>
@@ -948,21 +1055,35 @@ function viewInserir() {
           <div class="plog" id="plog"></div>
         </div>
       </div>
-    </div>
-  </div>`;
-  Ingest.arquivos = [];
-  $$('#modoIn button').forEach(b => b.onclick = () => { $$('#modoIn button').forEach(x => x.classList.toggle('on', x === b)); $('#inColar').classList.toggle('hidden', b.dataset.m !== 'colar'); $('#inArq').classList.toggle('hidden', b.dataset.m !== 'arq'); estimativa(); });
-  const drop = $('#drop'), fi = $('#fileIn');
+    </div>`;
+}
+function ligaFormInsercao(root, ponto) {
+  Ingest.arquivos = []; Ingest.ponto = ponto || null;
+  $$('#modoIn button', root).forEach(b => b.onclick = () => { $$('#modoIn button', root).forEach(x => x.classList.toggle('on', x === b)); $('#inColar', root).classList.toggle('hidden', b.dataset.m !== 'colar'); $('#inArq', root).classList.toggle('hidden', b.dataset.m !== 'arq'); estimativa(); });
+  const drop = $('#drop', root), fi = $('#fileIn', root);
   drop.onclick = () => fi.click();
   fi.onchange = () => { adicionaArquivos([...fi.files]); fi.value = ''; };
   drop.ondragover = (e) => { e.preventDefault(); drop.classList.add('over'); };
   drop.ondragleave = () => drop.classList.remove('over');
   drop.ondrop = (e) => { e.preventDefault(); drop.classList.remove('over'); adicionaArquivos([...e.dataTransfer.files]); };
-  $('#txtIn').oninput = debounce(estimativa, 300);
-  $('#tamIn').onchange = () => { S.cfg.tamanhoTrecho = +$('#tamIn').value; salvaCfg(); estimativa(); };
-  $('#goIA').onclick = () => executaAnalise(false);
-  $('#goManual').onclick = () => executaAnalise(true);
+  $('#txtIn', root).oninput = debounce(estimativa, 300);
+  $('#tamIn', root).onchange = () => { S.cfg.tamanhoTrecho = +$('#tamIn').value; salvaCfg(); estimativa(); };
+  $('#goIA', root).onclick = () => executaAnalise(false);
+  $('#goManual', root).onclick = () => executaAnalise(true);
   estimativa();
+}
+function viewInserir() {
+  $('#view').innerHTML = `<div class="wrap">
+    <h1 class="pg">Inserir material</h1>
+    <p class="sub">Cole o texto ou envie arquivos. A IA recorta o conteúdo, classifica por disciplina, ponto do edital, assunto e tipo, e compara com o que você já tem. Nada entra no seu material sem passar pela triagem. Para mandar material direto a um ponto, abra o ponto e use “Analisar neste ponto”.</p>
+    ${formInsercao(null)}</div>`;
+  ligaFormInsercao($('#view'), null);
+}
+/** abre o formulário de inserção já vinculado a um ponto do edital */
+function inserirNoPonto(pid) {
+  const x = PONTO.get(pid); if (!x) return;
+  modal({ titulo: `Analisar material no ponto ${h(rotuloPonto(x.p))} (${h(x.e.sigla)})`, corpo: formInsercao(pid), largo: true,
+    aoAbrir: (ov, fecha) => { ov.querySelector('.modal').style.width = 'min(1100px,100%)'; Ingest.fechaModal = () => { Ingest.ponto = null; fecha(); }; ligaFormInsercao(ov, pid); } });
 }
 function adicionaArquivos(fs) {
   for (const f of fs) Ingest.arquivos.push({ f, de: '', ate: '', comoDoc: false });
@@ -992,7 +1113,7 @@ function logP(msg) { const el = $('#plog'); if (!el) return; el.textContent += m
 async function executaAnalise(manual) {
   const colar = !$('#inColar').classList.contains('hidden');
   const fonte = $('#fonteIn').value.trim() || (colar ? 'Texto colado em ' + fmtData(now()) : (Ingest.arquivos[0]?.f.name || 'Material'));
-  const discSel = $('#discIn').value, dicas = $('#dicaIn').value.trim();
+  const discSel = $('#discIn').value, dicas = $('#dicaIn').value.trim(); const pontoFixo = Ingest.ponto;
   const fontes = []; // {nome, texto?, pdfBase64?}
   $('#prog').classList.remove('hidden'); $('#plog').textContent = ''; $('#progB').style.width = '0';
   $('#goIA').disabled = $('#goManual').disabled = true;
@@ -1014,11 +1135,11 @@ async function executaAnalise(manual) {
         logP(`  ${r.paginas ? r.lidas + ' página(s), ' : ''}${nfmt(r.texto.length)} caracteres extraídos.`);
       }
     }
-    const lote = { id: uid(), fonte, criado: now(), disc: discSel, propostas: [], provedor: manual ? 'manual' : S.cfg.provedor };
+    const lote = { id: uid(), fonte, criado: now(), disc: discSel, ponto: pontoFixo, propostas: [], provedor: manual ? 'manual' : S.cfg.provedor };
     if (manual) {
-      for (const f of fontes) lote.propostas.push(novaProposta({ tipo: 'doutrina', titulo: f.nome, html: textoParaHTML(f.texto || ''), disc: discSel === 'auto' ? (S.discAtual || 'civil') : discSel, status: 'novo' }));
+      for (const f of fontes) lote.propostas.push(novaProposta({ tipo: 'doutrina', titulo: f.nome, html: textoParaHTML(f.texto || ''), disc: discSel === 'auto' ? (S.discAtual || 'civil') : discSel, pontos: pontoFixo ? [pontoFixo] : [], status: 'novo', fonte: f.nome }));
       await salvaLote(lote); await registraHistorico({ fonte, tipo: 'lote', n: lote.propostas.length });
-      toast('Proposta criada. Classifique-a na triagem.'); abreLote(lote.id); return;
+      toast('Proposta criada. Classifique-a na triagem.'); fechaModalInsercao(); abreLote(lote.id); return;
     }
     // trechos
     const trechos = [];
@@ -1048,16 +1169,17 @@ async function executaAnalise(manual) {
       // itens com a mesma referência (súmula, tema, enunciado) sempre entram na comparação
       const refs = refsNoTexto(consulta);
       if (refs.size) for (const it of base) { if (cands.includes(it)) continue; const k = semPontoNum((it.ref || '') + ' ' + (it.titulo || '')); for (const r of refs) if (new RegExp('\\b' + r + '\\b').test(k)) { cands.push(it); break; } }
-      cands = cands.slice(0, 40);
+      if (pontoFixo) cands = [...new Set([...base.filter(it => (it.pontos || []).includes(pontoFixo)), ...cands])];
+      cands = cands.slice(0, 45);
       const partes = tr.pdf
-        ? [{ pdfBase64: tr.pdf }, { texto: promptOrganizador({ trecho: '(o texto a organizar é o PDF anexado acima)', discs, candidatos: cands, dicas }) }]
-        : [{ texto: promptOrganizador({ trecho: tr.texto, discs, candidatos: cands, dicas }) }];
+        ? [{ pdfBase64: tr.pdf }, { texto: promptOrganizador({ trecho: '(o texto a organizar é o PDF anexado acima)', discs, candidatos: cands, dicas, pontoFixo }) }]
+        : [{ texto: promptOrganizador({ trecho: tr.texto, discs, candidatos: cands, dicas, pontoFixo }) }];
       const t0 = Date.now();
       const resp = await comRetentativa(() => IA.gerar({ sistema: sistemaOrganizador(), partes, maxTokens: 24000, sinal: ctrl.signal, onTok: (n) => { $('#progT').textContent = `Trecho ${i + 1} de ${trechos.length} · ${nfmt(n)} caracteres recebidos`; } }), ctrl.signal);
       if (/\/\*TRUNCADO\*\/\s*$/.test(resp)) logP('  Aviso: resposta cortada pelo limite de saída; reduza o tamanho do trecho se faltar conteúdo.');
       let js;
       try { js = extraiJSON(resp); } catch (e) { logP('  Falha ao interpretar resposta: ' + e.message); continue; }
-      const uns = (js.unidades || []).map(u => normalizaUnidade(u, discs, tr.nome));
+      const uns = (js.unidades || []).map(u => normalizaUnidade(u, discs, tr.nome, pontoFixo));
       lote.propostas.push(...uns);
       logP(`  ${uns.length} unidade(s) em ${Math.round((Date.now() - t0) / 1000)} s — ${contaStatus(uns)}`);
       await salvaLote(lote); // salva progressivamente
@@ -1068,7 +1190,7 @@ async function executaAnalise(manual) {
     await salvaLote(lote);
     await registraHistorico({ fonte, tipo: 'lote', n: lote.propostas.length, resumo: contaStatus(lote.propostas) });
     toast(`Análise concluída: ${lote.propostas.length} unidades para triagem.`);
-    abreLote(lote.id);
+    fechaModalInsercao(); abreLote(lote.id);
   } catch (e) {
     if (e.name === 'AbortError') logP('Análise interrompida. O que já foi analisado ficou salvo na triagem.');
     else { logP('Erro: ' + e.message); toast(e.message, 'bad'); }
@@ -1091,14 +1213,16 @@ async function comRetentativa(fn, sinal) {
 function novaProposta(o) {
   return Object.assign({ pid: uid(), tipo: 'doutrina', titulo: '', ref: '', assunto: '', disc: 'civil', pontos: [], html: '', status: 'novo', relacionado: null, acrescimo: '', nota: '', decisao: null, fonte: '' }, o);
 }
-function normalizaUnidade(u, discs, fonte) {
+function fechaModalInsercao() { if (Ingest.fechaModal) { const f = Ingest.fechaModal; Ingest.fechaModal = null; f(); } }
+function normalizaUnidade(u, discs, fonte, pontoFixo) {
   const tipo = TIPO_NOME[u.tipo] ? u.tipo : 'doutrina';
   const disc = disciplina(u.disc) ? u.disc : discs[0];
   const pontos = (Array.isArray(u.pontos) ? u.pontos : []).filter(id => PONTO.has(id));
+  if (pontoFixo && !pontos.includes(pontoFixo)) pontos.unshift(pontoFixo);
   let status = ['novo', 'repetido', 'complementar', 'divergente'].includes(u.status) ? u.status : 'novo';
   let rel = u.relacionado && S.itens.get(u.relacionado) && !S.itens.get(u.relacionado).del ? u.relacionado : null;
   if (status !== 'novo' && !rel) status = 'novo';
-  return novaProposta({ tipo, titulo: String(u.titulo || '').slice(0, 160), ref: u.ref || '', assunto: u.assunto || '', disc, pontos, html: limpaHTML(u.html, { semNegrito: S.cfg.semNegrito }), status, relacionado: rel, acrescimo: u.acrescimo ? limpaHTML(u.acrescimo, { semNegrito: S.cfg.semNegrito }) : '', nota: u.nota || '', fonte });
+  return novaProposta({ tipo, titulo: String(u.titulo || '').slice(0, 160), ref: u.ref || '', assunto: u.assunto || '', disc, pontos, html: limpaHTML(u.html, { semNegrito: S.cfg.semNegrito, semNegritoForte: S.cfg.semNegrito }), status, relacionado: rel, acrescimo: u.acrescimo ? limpaHTML(u.acrescimo, { semNegrito: S.cfg.semNegrito, semNegritoForte: S.cfg.semNegrito }) : '', nota: u.nota || '', fonte });
 }
 function contaStatus(ps) {
   const c = { novo: 0, repetido: 0, complementar: 0, divergente: 0 };
@@ -1135,7 +1259,7 @@ function viewTriagem() {
     <p class="sub">Cada análise gera um lote. Revise, ajuste disciplina, ponto, assunto e tipo, e decida o que entra no seu material. Os lotes ficam salvos até você concluir.</p>
     ${ls.length ? `<div class="lotes">${ls.map(l => {
       const c = { novo: 0, complementar: 0, repetido: 0, divergente: 0 }; l.propostas.forEach(p => c[p.status]++);
-      return `<div class="lote" data-l="${l.id}"><div><div class="ttl">${h(l.fonte)}</div><div class="small muted">${fmtDataHora(l.criado)} · ${l.propostas.length} unidade(s) · ${l.disc === 'auto' ? 'disciplina detectada pela IA' : h(discNome(l.disc))}</div></div>
+      return `<div class="lote" data-l="${l.id}"><div><div class="ttl">${h(l.fonte)}</div><div class="small muted">${fmtDataHora(l.criado)} · ${l.propostas.length} unidade(s) · ${l.disc === 'auto' ? 'disciplina detectada pela IA' : h(discNome(l.disc))}${l.ponto && PONTO.get(l.ponto) ? ' · ponto ' + h(PONTO.get(l.ponto).e.sigla + ' ' + rotuloPonto(PONTO.get(l.ponto).p)) : ''}</div></div>
       <div class="row" style="gap:6px">${Object.entries(c).filter(x => x[1]).map(([k, v]) => `<span class="chip ${ST[k][1]}">${v} ${ST[k][0].toLowerCase()}</span>`).join('')}</div></div>`;
     }).join('')}</div>` : `<div class="empty">Nenhum lote aguardando triagem.<br><br><button class="btn pri" data-go="inserir">Inserir material</button></div>`}
   </div>`;
@@ -1193,7 +1317,7 @@ function cartaoProposta(p) {
       <div><label class="f">Assunto</label><input class="in" data-k="assunto" value="${h(p.assunto)}" list="dl-${p.pid}"><datalist id="dl-${p.pid}">${assuntos.map(a => `<option value="${h(a)}">`).join('')}</datalist></div>
     </div>
     <div style="margin-bottom:10px"><label class="f">Pontos do edital</label><div class="pts">${chipsPontos(p.pontos)}<button class="btn sm" data-addp>+ ponto</button></div></div>
-    <div class="ed" contenteditable="true" data-k="html">${p.html}</div>
+    <div class="ed" contenteditable="true" data-k="html" style="${cssEstiloTipo(p.tipo)};border-left:4px solid var(--tc);background:var(--tf)">${p.html}</div>
     ${p.nota ? `<div class="note">${h(p.nota)}</div>` : ''}
     ${rel ? `<div class="cmp"><div class="box"><h6>Já existe no seu material · ${h(TIPO_CURTO[rel.tipo])}${rel.ref ? ' · ' + h(rel.ref) : ''}</h6><div>${h(rel.titulo || '')}</div>${rel.html}</div>
       <div class="box"><h6>${p.status === 'complementar' ? 'Informação nova identificada (é o que será mesclado)' : 'Texto proposto'}</h6><div class="ed2" contenteditable="${p.status === 'complementar'}" data-k="acrescimo">${p.status === 'complementar' ? (p.acrescimo || p.html) : p.html}</div></div></div>` : ''}
@@ -1208,7 +1332,7 @@ function ligaCartoes() {
       const ev = el.isContentEditable ? 'input' : (el.tagName === 'SELECT' ? 'change' : 'input');
       el.addEventListener(ev, () => {
         p[k] = el.isContentEditable ? el.innerHTML : el.value;
-        if (k === 'disc') { salvaLote(Tri.lote); desenhaLote(); return; }
+        if (k === 'disc' || k === 'tipo') { salvaLote(Tri.lote); desenhaLote(); return; }
         salvaLoteDeb();
       });
     });
@@ -1222,7 +1346,7 @@ async function aplicaDecisoes() {
   const resta = [];
   for (const p of l.propostas) {
     const d = p.decisao || DEC_PADRAO[p.status];
-    const html = limpaHTML(p.html, { semNegrito: S.cfg.semNegrito });
+    const html = limpaHTML(p.html);
     if (d === 'descartar') { desc++; continue; }
     if (d === 'incluir' || ((d === 'mesclar' || d === 'substituir') && !(p.relacionado && S.itens.get(p.relacionado) && !S.itens.get(p.relacionado).del))) {
       const it = { id: uid(), disc: p.disc, tipo: p.tipo, titulo: p.titulo, ref: p.ref, assunto: p.assunto, html, pontos: p.pontos, fontes: p.fonte ? [p.fonte] : [], criado: now() };
@@ -1231,7 +1355,7 @@ async function aplicaDecisoes() {
     }
     const ex = S.itens.get(p.relacionado);
     if (d === 'mesclar') {
-      const add = limpaHTML(p.acrescimo || p.html, { semNegrito: S.cfg.semNegrito });
+      const add = limpaHTML(p.acrescimo || p.html);
       ex.html = (ex.html || '') + add;
       mes++;
     } else { ex.html = html; ex.tipo = p.tipo; if (p.titulo) ex.titulo = p.titulo; if (p.ref) ex.ref = p.ref; sub++; }
@@ -1246,7 +1370,8 @@ async function aplicaDecisoes() {
   toast(`${inc} incluído(s), ${mes} mesclado(s), ${sub} substituído(s), ${desc} descartado(s).`);
   desenhaDisciplinas();
   const d = l.propostas.find(p => p.decisao !== 'descartar')?.disc;
-  d ? abreDisciplina(d) : navega('triagem');
+  if (l.ponto && PONTO.get(l.ponto)) { const x = PONTO.get(l.ponto); if (S.lente !== x.e.id) { S.lente = x.e.id; LS.set('lente', S.lente); desenhaLente(); } abreDisciplina(l.disc && l.disc !== 'auto' ? l.disc : (d || x.disc), { ponto: l.ponto }); }
+  else d ? abreDisciplina(d) : navega('triagem');
 }
 
 /* ---------- seletores reutilizáveis ---------- */
@@ -1292,41 +1417,44 @@ function escolhePontos(disc, atuais, cb) {
 }
 
 /* =========================================================
-   Caderno: o material da disciplina como documento (estilo Word), editável
+   Caderno: um documento (arquivo) por ponto do edital, editável como no Word
    ========================================================= */
-const Cad = { disc: null, pontoAtivo: null, ocultaVazios: LS.get('ocultaVazios', false), tipos: null };
+const Cad = { disc: null, ponto: null, tipos: null };
+const ultimoPonto = (disc) => LS.get('ultimoPonto', {})[disc + '|' + S.lente];
+const guardaPonto = (disc, pid) => { const m = LS.get('ultimoPonto', {}); m[disc + '|' + S.lente] = pid; LS.set('ultimoPonto', m); };
 
 function numRef(it) { const m = String(it.ref || it.titulo || '').replace(/(\d)\.(?=\d{3})/g, '$1').match(/\d+/); return m ? +m[0] : 1e9; }
 function ordenaItens(a, b) {
+  const oa = a.ordem ?? null, ob = b.ordem ?? null;
+  if (oa !== null && ob !== null && oa !== ob) return oa - ob;
+  if (oa !== null && ob === null) return -1;
+  if (ob !== null && oa === null) return 1;
   return (TIPO_ORD[a.tipo] - TIPO_ORD[b.tipo]) || (numRef(a) - numRef(b)) || String(a.criado || '').localeCompare(String(b.criado || ''));
 }
-/** monta o modelo do documento: [{ponto, sec, itens}] + semPonto */
-function modeloDoc(disc, lente, { pontos: filtroPontos = null, tipos = null } = {}) {
-  const ps = pontosDaDisc(lente, disc);
-  const ids = new Set(ps.map(p => p.id));
-  const todos = itensVivos().filter(i => !tipos || tipos.includes(i.tipo));
-  const porPonto = new Map(ps.map(p => [p.id, []]));
-  for (const it of todos) for (const pid of it.pontos || []) if (porPonto.has(pid)) porPonto.get(pid).push(it);
-  const semPonto = todos.filter(i => i.disc === disc && !(i.pontos || []).some(pid => ids.has(pid)));
-  let secoes = ps.map(p => ({ ponto: p, itens: porPonto.get(p.id).sort(ordenaItens) }));
-  if (filtroPontos) secoes = secoes.filter(s => filtroPontos.includes(s.ponto.id));
-  return { secoes, semPonto: filtroPontos && !filtroPontos.includes('__sem') ? [] : semPonto.sort(ordenaItens) };
+/** itens de um ponto (ou os sem ponto da disciplina nesta lente) */
+function itensDoPonto(disc, lente, pid, tipos = Cad.tipos) {
+  const vivos = itensVivos().filter(i => !tipos || tipos.includes(i.tipo));
+  if (pid === '__sem') {
+    const ids = new Set(pontosDaDisc(lente, disc).map(p => p.id));
+    return vivos.filter(i => i.disc === disc && !(i.pontos || []).some(x => ids.has(x))).sort(ordenaItens);
+  }
+  return vivos.filter(i => (i.pontos || []).includes(pid)).sort(ordenaItens);
 }
+function contaSemPonto(disc, lente) { return itensDoPonto(disc, lente, '__sem', null).length; }
 function agrupa(itens) {
-  // devolve [{h3, grupos:[{h4, itens}]}] conforme o modo de agrupamento
   const modo = S.cfg.agrupar;
   const k1 = modo === 'tipo' ? (i) => i.tipo : (i) => i.assunto || 'Aspectos gerais';
   const k2 = modo === 'tipo' ? (i) => i.assunto || '' : (i) => i.tipo;
   const m1 = new Map();
   for (const it of itens) { const a = k1(it); if (!m1.has(a)) m1.set(a, []); m1.get(a).push(it); }
-  let chaves = [...m1.keys()];
+  const chaves = [...m1.keys()];
   chaves.sort(modo === 'tipo' ? (a, b) => TIPO_ORD[a] - TIPO_ORD[b] : (a, b) => (a === 'Aspectos gerais' ? -1 : b === 'Aspectos gerais' ? 1 : a.localeCompare(b, 'pt')));
   return chaves.map(c => {
     const m2 = new Map();
     for (const it of m1.get(c)) { const b = k2(it); if (!m2.has(b)) m2.set(b, []); m2.get(b).push(it); }
-    let c2 = [...m2.keys()];
+    const c2 = [...m2.keys()];
     c2.sort(modo === 'tipo' ? (a, b) => (a === '' ? -1 : b === '' ? 1 : a.localeCompare(b, 'pt')) : (a, b) => TIPO_ORD[a] - TIPO_ORD[b]);
-    return { h3: modo === 'tipo' ? TIPO_NOME[c] : c, grupos: c2.map(x => ({ h4: modo === 'tipo' ? x : TIPO_NOME[x], itens: m2.get(x) })) };
+    return { chave: c, h3: modo === 'tipo' ? TIPO_NOME[c] : c, tipo: modo === 'tipo' ? c : null, grupos: c2.map(x => ({ chave: x, h4: modo === 'tipo' ? x : TIPO_NOME[x], tipo: modo === 'tipo' ? null : x, itens: m2.get(x) })) };
   });
 }
 function refRedundante(it) {
@@ -1337,135 +1465,136 @@ function refRedundante(it) {
   return !!palavra && t.includes(palavra) && nr.length > 0 && nr.every(n => nt.includes(n));
 }
 function htmlItem(it, ed) {
-  const refNoTitulo = refRedundante(it);
+  const est = estiloTipo(it.tipo);
   const div = it.divergeDe ? `<span class="dv" title="${h(it.notaDiv || '')}">divergência</span>` : '';
-  return `<div class="it" data-id="${it.id}" id="it-${it.id}">
-    <div class="ih"><span>${h(it.titulo || TIPO_CURTO[it.tipo])}</span>${it.ref && !refNoTitulo ? `<span class="rf">${h(it.ref)}</span>` : ''}${it.estrela ? '<span class="star">★</span>' : ''}${div}</div>
+  return `<div class="it f-${est.forma}" data-id="${it.id}" id="it-${it.id}" style="${cssEstiloTipo(it.tipo)}">
+    <div class="ih"><span class="tg">${h(TIPO_CURTO[it.tipo])}</span><span class="tt">${h(it.titulo || '')}</span>${!refRedundante(it) ? `<span class="rf">${h(it.ref)}</span>` : ''}${it.estrela ? '<span class="star">★</span>' : ''}${div}</div>
     <div class="ic" ${ed ? 'contenteditable="true"' : ''}>${it.html || '<p></p>'}</div>
-    ${ed ? `<div class="gut"><button data-a="meta" title="Classificação (tipo, ponto, assunto)"><svg class="i sm"><use href="#i-edit"/></svg></button><button data-a="estrela" title="Destacar"><svg class="i sm"><use href="#i-star"/></svg></button><button data-a="mais" title="Mais"><svg class="i sm"><use href="#i-more"/></svg></button></div>` : ''}
+    ${ed ? `<div class="gut">
+      <button data-a="meta" title="Classificação (tipo, pontos, assunto)"><svg class="i sm"><use href="#i-edit"/></svg></button>
+      <button data-a="sobe" title="Mover para cima">↑</button><button data-a="desce" title="Mover para baixo">↓</button>
+      <button data-a="mover" title="Mover para outro ponto"><svg class="i sm"><use href="#i-move"/></svg></button>
+      <button data-a="estrela" title="Destacar com estrela"><svg class="i sm"><use href="#i-star"/></svg></button>
+      <button data-a="mais" title="Mais"><svg class="i sm"><use href="#i-more"/></svg></button></div>` : ''}
   </div>`;
 }
 function htmlBlocoItens(itens, ed) {
-  return agrupa(itens).map(g => `<h3 class="tp">${h(g.h3)}</h3>` + g.grupos.map(x => (x.h4 ? `<h4 class="as">${h(x.h4)}</h4>` : '') + x.itens.map(it => htmlItem(it, ed)).join('')).join('')).join('');
+  return agrupa(itens).map(g => `<h3 class="tp" ${g.tipo ? `style="${cssEstiloTipo(g.tipo)}"` : ''}>${h(g.h3)}</h3>` + g.grupos.map(x =>
+    (x.h4 ? `<h4 class="as" ${x.tipo ? `style="${cssEstiloTipo(x.tipo)}"` : ''}>${h(x.h4)}</h4>` : '') + `<div class="grp">${x.itens.map(it => htmlItem(it, ed)).join('')}</div>`).join('')).join('');
 }
-function htmlDocumento(disc, lente, opts = {}) {
-  const ed = !!opts.editavel; const e = edital(lente);
-  const mod = modeloDoc(disc, lente, opts);
-  const nItens = new Set([...mod.secoes.flatMap(s => s.itens.map(i => i.id)), ...mod.semPonto.map(i => i.id)]).size;
-  let html = `<div class="d-cover"><div class="k">Caderno sistematizado · edital ${h(e.sigla)}</div><h1>${h(discNome(disc))}</h1><div class="m">${h(e.nome)} · ${nItens} item(ns) · versão de ${fmtData(now())}</div></div>`;
-  let secAnt = null;
-  for (const s of mod.secoes) {
-    const p = s.ponto; const nota = S.notas.get(p.id);
-    if (ed && Cad.ocultaVazios && !s.itens.length && !(nota && textoPlano(nota.html))) continue;
-    if (!ed && !s.itens.length && !(nota && textoPlano(nota.html)) && opts.soComMaterial) continue;
-    if (p.sec && p.sec !== secAnt) { html += `<h2 class="pt" style="border-top:0;margin-top:30pt;font-size:13pt;color:#6b6457">${h(p.sec)}</h2>`; secAnt = p.sec; }
-    const x = PONTO.get(p.id);
-    const origem = x && x.disc !== disc ? ` <span style="font-size:10pt;color:#8a8375">(${h(discNome(x.disc))})</span>` : '';
-    html += `<section class="ponto" id="pt-${cssId(p.id)}" data-pid="${p.id}" style="--pc:${e.cor}">
-      <h2 class="pt"><span class="pn">Ponto ${h(rotuloPonto(p))}</span>${h(tituloPonto(p))}${origem}</h2>
-      ${semAcento(p.t).replace(/[.;:\s]+$/, '') === semAcento(tituloPonto(p)) ? '' : `<p class="ementa ${ed ? 'clip' : ''}" title="${ed ? 'Clique para ver o texto integral do ponto' : ''}">${h(p.t)}</p>`}
-      ${s.itens.length ? htmlBlocoItens(s.itens, ed) : (ed ? `<div class="nomat">Nenhum material neste ponto.<button data-add="${p.id}">+ Item</button>${nota && textoPlano(nota.html) ? '' : `<button data-nota-add="${p.id}">+ Anotação</button>`}</div>` : '')}
-      ${nota && textoPlano(nota.html) ? `<div class="pnote"><div class="lb">Anotações do ponto</div><div class="ic" data-nota="${p.id}" ${ed ? 'contenteditable="true"' : ''}>${nota.html}</div></div>` : ''}
-      ${ed && s.itens.length ? `<div class="addrow"><button data-add="${p.id}">+ Inserir item</button>${nota && textoPlano(nota.html) ? '' : `<button data-nota-add="${p.id}">+ Anotação do ponto</button>`}</div>` : ''}
-    </section>`;
+/** correspondências do ponto nos outros editais (a partir dos vínculos dos itens) */
+function equivalencias(pid, itens) {
+  const cont = new Map();
+  for (const it of itens) for (const p of it.pontos || []) { if (p === pid) continue; const x = PONTO.get(p); if (!x || x.e.id === S.lente) continue; cont.set(p, (cont.get(p) || 0) + 1); }
+  return [...cont].sort((a, b) => b[1] - a[1]).slice(0, 6).map(([p]) => p);
+}
+/** HTML de UM ponto (um "arquivo") */
+function htmlPonto(disc, lente, pid, { editavel = false, tipos = Cad.tipos } = {}) {
+  const e = edital(lente); const ed = editavel;
+  const itens = itensDoPonto(disc, lente, pid, tipos);
+  const nota = S.notas.get(pid); const temNota = nota && textoPlano(nota.html);
+  let cab;
+  if (pid === '__sem') cab = `<div class="d-cover" style="--pc:#8a8375"><div class="k">${h(discNome(disc))} · edital ${h(e.sigla)}</div><h1><span class="pn">Sem ponto</span></h1><div class="pt-tit">Material sem correspondência neste edital</div><div class="m">${itens.length} item(ns)</div></div>`;
+  else {
+    const x = PONTO.get(pid); const p = x.p;
+    const eqs = equivalencias(pid, itens);
+    const mesmo = semAcento(p.t).replace(/[.;:\s]+$/, '') === semAcento(tituloPonto(p));
+    cab = `<div class="d-cover" style="--pc:${e.cor}"><div class="k">${h(discNome(disc))} · edital ${h(e.sigla)}${p.sec ? ' · ' + h(p.sec) : ''}${x.disc !== disc ? ' · ponto de ' + h(discNome(x.disc)) : ''}</div>
+      <h1><span class="pn">Ponto ${h(rotuloPonto(p))}</span></h1><div class="pt-tit">${h(tituloPonto(p))}</div>
+      ${mesmo ? '' : `<p class="ementa">${h(p.t)}</p>`}
+      <div class="m">${itens.length} item(ns)${eqs.length ? ' · corresponde a ' + eqs.map(q => { const y = PONTO.get(q); return `<span style="color:${y.e.cor}">${h(y.e.sigla)} ${h(rotuloPonto(y.p))}</span>`; }).join(', ') : ''}</div></div>`;
   }
-  if (mod.semPonto.length) {
-    html += `<section class="ponto semponto" id="pt-sem" data-pid="__sem"><h2 class="pt"><span class="pn">Sem ponto</span>Material sem correspondência no edital ${h(e.sigla)}</h2>
-      <p class="ementa">Itens desta disciplina que não foram vinculados a nenhum ponto deste edital.</p>${htmlBlocoItens(mod.semPonto, ed)}</section>`;
-  }
-  if (!mod.secoes.length && !mod.semPonto.length) html += `<p class="ementa" style="margin-top:20pt">Esta disciplina não consta do edital ${h(e.sigla)} e ainda não há material cadastrado nela.</p>`;
-  return html;
+  let corpo = itens.length ? htmlBlocoItens(itens, ed) : (ed ? `<div class="nomat">Nenhum material neste ponto ainda.<button data-acao="ia">Analisar material com IA</button><button data-acao="item">+ Item manual</button></div>` : '<p class="ementa">Nenhum material neste ponto.</p>');
+  if (temNota || ed) corpo += (temNota ? `<div class="pnote"><div class="lb">Anotações do ponto</div><div class="ic" data-nota="${pid}" ${ed ? 'contenteditable="true"' : ''}>${nota.html}</div></div>` : '');
+  return `<section class="ponto" data-pid="${pid}">${cab}${corpo}</section>`;
 }
 const cssId = (id) => id.replace(/[^a-zA-Z0-9_-]/g, '_');
 function estiloPagina() { return `--dfs:${S.cfg.tamDoc}pt;--dlh:${S.cfg.entrelinha};font-family:'${S.cfg.fonteDoc}',Cambria,Georgia,serif`; }
 
 /* ---------- tela ---------- */
+function listaPontosNav(disc) {
+  const l = pontosDaDisc(S.lente, disc).map(p => p.id);
+  if (contaSemPonto(disc, S.lente)) l.push('__sem');
+  return l;
+}
 function abreDisciplina(disc, { item, ponto } = {}) {
   Cad.disc = disc; S.discAtual = disc; S.rota = 'disc';
   marcaNav(null); desenhaDisciplinas();
-  const e = edital(S.lente);
-  const ps = pontosDaDisc(S.lente, disc);
-  const cont = (pid) => itensVivos().filter(i => (i.pontos || []).includes(pid)).length;
-  const semP = modeloDoc(disc, S.lente).semPonto.length;
+  const lista = listaPontosNav(disc);
+  if (item && !ponto) { const it = S.itens.get(item); ponto = (it?.pontos || []).find(p => lista.includes(p)) || '__sem'; }
+  if (!ponto || !lista.includes(ponto)) ponto = lista.includes(ultimoPonto(disc)) ? ultimoPonto(disc) : (lista.find(p => itensDoPonto(disc, S.lente, p, null).length) || lista[0] || null);
+  Cad.ponto = ponto;
+  const e = edital(S.lente); const ps = pontosDaDisc(S.lente, disc);
+  const cont = (pid) => itensDoPonto(disc, S.lente, pid, null).length;
   let tocHTML = ''; let secAnt = null;
   for (const p of ps) {
     if (p.sec && p.sec !== secAnt) { tocHTML += `<li class="secl">${h(p.sec)}</li>`; secAnt = p.sec; }
     const n = cont(p.id);
     tocHTML += `<li class="l${p.lvl || 0}"><button data-pt="${p.id}"><span class="no">${h(rotuloPonto(p))}</span><span>${h(tituloPonto(p))}</span><span class="ct ${n ? 'has' : ''}">${n}</span></button></li>`;
   }
+  const semP = contaSemPonto(disc, S.lente);
   if (semP) tocHTML += `<li class="secl">Fora do edital</li><li><button data-pt="__sem"><span class="no">—</span><span>Sem ponto neste edital</span><span class="ct has">${semP}</span></button></li>`;
   const cobertos = ps.filter(p => cont(p.id)).length;
   $('#view').innerHTML = `<div class="cad">
     <aside class="toc" id="toc"><div class="toc-h"><h3>${h(discNome(disc))}</h3><div class="muted">${ps.length ? `${e.sigla}: ${cobertos} de ${ps.length} pontos com material` : `Não consta do edital ${e.sigla}`}</div></div><ul>${tocHTML || '<li class="secl">Sem pontos neste edital</li>'}</ul></aside>
     <div class="docarea" id="docarea">
       <div class="dtool">
-        <button class="icon-btn" id="tocBtn" title="Sumário"><svg class="i"><use href="#i-toc"/></svg></button>
-        <div class="fmt" id="fmt">
-          <button data-c="italic" title="Itálico (Ctrl+I)"><i>I</i></button>
-          <button data-c="underline" title="Sublinhado (Ctrl+U)"><u>U</u></button>
-          <button data-c="bold" title="Negrito (Ctrl+B)"><b>N</b></button>
-          <button data-c="hilite" title="Marca-texto"><span style="background:#fff0a8;padding:0 4px;color:#222">ab</span></button>
-          <button data-c="insertUnorderedList" title="Lista">•</button>
-          <button data-c="insertOrderedList" title="Lista numerada">1.</button>
-          <button data-c="quote" title="Citação recuada">❝</button>
-          <button data-c="removeFormat" title="Limpar formatação">⌫</button>
+        <div class="dtl1">
+          <button class="icon-btn" id="tocBtn" title="Lista de pontos"><svg class="i"><use href="#i-toc"/></svg></button>
+          <button class="icon-btn" id="ptAnt" title="Ponto anterior">‹</button><span class="small muted" id="ptPos"></span><button class="icon-btn" id="ptProx" title="Próximo ponto">›</button>
+          <span class="sepv"></span>
+          <button class="btn sm pri" id="iaPonto" title="Enviar material para análise já vinculado a este ponto"><svg class="i sm"><use href="#i-spark"/></svg>Analisar neste ponto</button>
+          <button class="btn sm" id="novoIt"><svg class="i sm"><use href="#i-plus"/></svg>Item</button>
+          <button class="btn sm" id="notaPt">+ Anotação</button>
+          <span class="sp"></span>
+          <button class="btn sm" id="exibir">Exibição</button>
+          <button class="btn sm" id="expW"><svg class="i sm"><use href="#i-doc"/></svg>Word</button>
+          <button class="btn sm" id="expP"><svg class="i sm"><use href="#i-print"/></svg>PDF</button>
         </div>
-        <span class="sepv"></span>
-        <div class="seg" id="agr"><button data-g="tipo" class="${S.cfg.agrupar === 'tipo' ? 'on' : ''}" title="Dentro de cada ponto: tipo → assunto">Por tipo</button><button data-g="assunto" class="${S.cfg.agrupar === 'assunto' ? 'on' : ''}" title="Dentro de cada ponto: assunto → tipo">Por assunto</button></div>
-        <button class="btn sm" id="tiposBtn">${Cad.tipos ? Cad.tipos.length + ' tipo(s)' : 'Todos os tipos'}</button>
-        <label class="toggle small"><input type="checkbox" id="ocVaz" ${Cad.ocultaVazios ? 'checked' : ''}>Ocultar vazios</label>
-        <span class="sp"></span>
-        <button class="btn sm" id="novoIt"><svg class="i sm"><use href="#i-plus"/></svg>Item</button>
-        <button class="btn sm" id="expW"><svg class="i sm"><use href="#i-doc"/></svg>Word</button>
-        <button class="btn sm" id="expP"><svg class="i sm"><use href="#i-print"/></svg>PDF</button>
+        ${barraFormatacao()}
       </div>
-      <div class="page" id="page" style="${estiloPagina()}">${htmlDocumento(disc, S.lente, { editavel: true, tipos: Cad.tipos })}</div>
+      <div class="page" id="page" style="${estiloPagina()}"></div>
     </div></div>`;
   ligaDocumento();
-  if (item) setTimeout(() => { const el = document.getElementById('it-' + item); if (el) { el.scrollIntoView({ block: 'center' }); el.classList.add('flash'); } }, 60);
-  else if (ponto) setTimeout(() => irParaPonto(ponto), 60);
+  mostraPonto(ponto, item);
 }
-function irParaPonto(pid) {
-  const el = pid === '__sem' ? $('#pt-sem') : document.getElementById('pt-' + cssId(pid));
-  if (el) { el.scrollIntoView({ block: 'start' }); Cad.pontoAtivo = pid; $$('#toc [data-pt]').forEach(b => b.classList.toggle('on', b.dataset.pt === pid)); }
-  if (innerWidth <= 900) fechaToc();
+function mostraPonto(pid, item) {
+  Cad.ponto = pid;
+  const page = $('#page');
+  if (!pid) { page.innerHTML = `<p class="ementa">Esta disciplina não tem pontos no edital ${h(edital(S.lente).sigla)} e ainda não há material nela.</p>`; return; }
+  guardaPonto(Cad.disc, pid);
+  page.innerHTML = htmlPonto(Cad.disc, S.lente, pid, { editavel: true });
+  const lista = listaPontosNav(Cad.disc); const i = lista.indexOf(pid);
+  $('#ptPos').textContent = pid === '__sem' ? 'sem ponto' : `${i + 1} / ${lista.length}`;
+  $('#ptAnt').disabled = i <= 0; $('#ptProx').disabled = i >= lista.length - 1;
+  $$('#toc [data-pt]').forEach(b => b.classList.toggle('on', b.dataset.pt === pid));
+  $('#toc [data-pt].on')?.scrollIntoView({ block: 'nearest' });
+  $('#iaPonto').disabled = pid === '__sem';
+  ligaPagina();
+  $('#docarea').scrollTop = 0;
+  if (item) setTimeout(() => { const el = document.getElementById('it-' + item); if (el) { el.scrollIntoView({ block: 'center' }); el.classList.add('flash'); } }, 60);
 }
 function fechaToc() { $('#toc')?.classList.remove('open'); $('.scrim.toc-s')?.remove(); }
+function atualizaContagensToc() {
+  $$('#toc [data-pt]').forEach(b => { const n = itensDoPonto(Cad.disc, S.lente, b.dataset.pt, null).length; const c = $('.ct', b); c.textContent = n; c.classList.toggle('has', !!n); });
+}
 function ligaDocumento() {
-  const page = $('#page');
-  $$('#toc [data-pt]').forEach(b => b.onclick = () => irParaPonto(b.dataset.pt));
+  $$('#toc [data-pt]').forEach(b => b.onclick = () => { mostraPonto(b.dataset.pt); if (innerWidth <= 900) fechaToc(); });
   $('#tocBtn').onclick = () => {
     if (innerWidth > 900) { const t = $('#toc'); const cad = $('.cad'); const esc = t.style.display === 'none'; t.style.display = esc ? '' : 'none'; cad.style.gridTemplateColumns = esc ? '' : '1fr'; return; }
     $('#toc').classList.add('open'); const s = document.createElement('div'); s.className = 'scrim toc-s'; s.onclick = fechaToc; document.body.appendChild(s);
   };
-  // ponto ativo ao rolar
-  const obs = new IntersectionObserver((ents) => {
-    for (const en of ents) if (en.isIntersecting) { const pid = en.target.dataset.pid; Cad.pontoAtivo = pid; $$('#toc [data-pt]').forEach(b => b.classList.toggle('on', b.dataset.pt === pid)); }
-  }, { root: $('#docarea'), rootMargin: '-10% 0px -80% 0px' });
-  $$('section.ponto', page).forEach(s => obs.observe(s));
-  // formatação
-  $$('#fmt button').forEach(b => b.onmousedown = (e) => {
-    e.preventDefault();
-    const c = b.dataset.c;
-    if (c === 'hilite') { document.execCommand('styleWithCSS', false, true); const ok = document.execCommand('hiliteColor', false, '#fff0a8'); if (!ok) document.execCommand('backColor', false, '#fff0a8'); document.execCommand('styleWithCSS', false, false); }
-    else if (c === 'quote') document.execCommand('formatBlock', false, 'blockquote');
-    else document.execCommand(c, false, null);
-    const ic = document.activeElement?.closest?.('.ic'); if (ic) ic.dispatchEvent(new Event('input'));
-  });
-  $$('#agr button').forEach(b => b.onclick = () => { S.cfg.agrupar = b.dataset.g; salvaCfg(); redesenhaPagina(); $$('#agr button').forEach(x => x.classList.toggle('on', x === b)); });
-  $('#ocVaz').onchange = (e) => { Cad.ocultaVazios = e.target.checked; LS.set('ocultaVazios', Cad.ocultaVazios); redesenhaPagina(); };
-  $('#tiposBtn').onclick = (e) => menuTipos(e.currentTarget);
-  $('#novoIt').onclick = () => editaItem(null, { disc: Cad.disc, pontos: Cad.pontoAtivo && Cad.pontoAtivo !== '__sem' ? [Cad.pontoAtivo] : [] });
+  const passo = (d) => { const l = listaPontosNav(Cad.disc); const i = l.indexOf(Cad.ponto) + d; if (l[i]) mostraPonto(l[i]); };
+  $('#ptAnt').onclick = () => passo(-1); $('#ptProx').onclick = () => passo(1);
+  $('#iaPonto').onclick = () => Cad.ponto && Cad.ponto !== '__sem' && inserirNoPonto(Cad.ponto);
+  $('#novoIt').onclick = () => editaItem(null, { disc: Cad.disc, pontos: Cad.ponto && Cad.ponto !== '__sem' ? [Cad.ponto] : [] });
+  $('#notaPt').onclick = async () => { if (!Cad.ponto) return; const n = S.notas.get(Cad.ponto); if (!n || !textoPlano(n.html)) await salvaNota(Cad.ponto, '<p>Anotação…</p>'); mostraPonto(Cad.ponto); const el = $(`[data-nota="${Cad.ponto}"]`); if (el) { el.scrollIntoView({ block: 'center' }); el.focus(); } };
+  $('#exibir').onclick = (e) => menuExibicao(e.currentTarget);
   $('#expW').onclick = (e) => menuExporta(e.currentTarget, 'word');
   $('#expP').onclick = (e) => menuExporta(e.currentTarget, 'pdf');
-  ligaPagina();
+  ligaFormatacao();
 }
-function redesenhaPagina() {
-  const da = $('#docarea'); const top = da.scrollTop;
-  $('#page').innerHTML = htmlDocumento(Cad.disc, S.lente, { editavel: true, tipos: Cad.tipos });
-  ligaPagina(); da.scrollTop = top;
-  $('#tiposBtn').textContent = Cad.tipos ? Cad.tipos.length + ' tipo(s)' : 'Todos os tipos';
-}
+function redesenhaPagina() { const da = $('#docarea'); const top = da.scrollTop; mostraPonto(Cad.ponto); da.scrollTop = top; atualizaContagensToc(); }
 function ligaPagina() {
   const page = $('#page');
   const salvaDeb = new Map();
@@ -1480,15 +1609,36 @@ function ligaPagina() {
     salvaDeb.get(chave)();
   };
   page.onclick = async (e) => {
-    const em = e.target.closest('.ementa.clip'); if (em) { em.classList.remove('clip'); return; }
-    const add = e.target.closest('[data-add]'); if (add) return editaItem(null, { disc: Cad.disc, pontos: [add.dataset.add] });
-    const na = e.target.closest('[data-nota-add]'); if (na) { await salvaNota(na.dataset.notaAdd, '<p>Anotação…</p>'); redesenhaPagina(); const el = $(`[data-nota="${na.dataset.notaAdd}"]`); if (el) { el.focus(); document.execCommand('selectAll', false, null); } return; }
+    const ac = e.target.closest('[data-acao]');
+    if (ac) { if (ac.dataset.acao === 'ia') return $('#iaPonto').click(); return $('#novoIt').click(); }
     const b = e.target.closest('.gut button'); if (!b) return;
     const it = S.itens.get(b.closest('.it').dataset.id); if (!it) return;
-    if (b.dataset.a === 'meta') editaItem(it);
-    else if (b.dataset.a === 'estrela') { it.estrela = !it.estrela; await salvaItem(it); redesenhaPagina(); }
-    else if (b.dataset.a === 'mais') menuItem(b, it);
+    const a = b.dataset.a;
+    if (a === 'meta') editaItem(it);
+    else if (a === 'estrela') { it.estrela = !it.estrela; await salvaItem(it); redesenhaPagina(); }
+    else if (a === 'sobe' || a === 'desce') moveNoGrupo(b.closest('.it'), a === 'sobe' ? -1 : 1);
+    else if (a === 'mover') moverParaPonto(it);
+    else if (a === 'mais') menuItem(b, it);
   };
+}
+async function moveNoGrupo(el, d) {
+  const irmaos = $$('.it', el.closest('.grp')); const i = irmaos.indexOf(el); const j = i + d;
+  if (j < 0 || j >= irmaos.length) return toast(d < 0 ? 'Já é o primeiro do grupo.' : 'Já é o último do grupo.');
+  const ids = irmaos.map(x => x.dataset.id); [ids[i], ids[j]] = [ids[j], ids[i]];
+  // mantém a posição relativa entre grupos: usa a menor ordem existente como base
+  const base = Math.min(...ids.map(id => S.itens.get(id).ordem ?? 1e6));
+  for (const [k, id] of ids.entries()) { const it = S.itens.get(id); it.ordem = (base === 1e6 ? 0 : base) + k; await salvaItem(it, { silencioso: true }); }
+  Sync.agenda(); redesenhaPagina();
+  const novo = document.getElementById('it-' + ids[j]); if (novo) { novo.scrollIntoView({ block: 'nearest' }); novo.classList.add('flash'); }
+}
+function moverParaPonto(it) {
+  const ps = pontosDaDisc(S.lente, Cad.disc);
+  modal({ titulo: 'Mover item para outro ponto', largo: true, corpo: `<p class="small muted" style="margin-top:0">Edital ${h(edital(S.lente).sigla)}. Os vínculos com pontos de outros editais são mantidos.</p><input class="in" id="mvQ" placeholder="Filtrar…"><div class="picker-list" id="mvL"></div>`,
+    aoAbrir: (ov, fecha) => {
+      const des = () => { const q = semAcento($('#mvQ', ov).value); $('#mvL', ov).innerHTML = ps.filter(p => !q || semAcento(p.n + ' ' + p.t).includes(q)).map(p => `<div class="pi ${p.id === Cad.ponto ? 'sel' : ''}" data-id="${p.id}"><b>${h(rotuloPonto(p))}</b><div>${h(tituloPonto(p))}</div></div>`).join('');
+        $$('.pi', ov).forEach(el => el.onclick = async () => { const alvo = el.dataset.id; it.pontos = (it.pontos || []).filter(x => x !== Cad.ponto); if (!it.pontos.includes(alvo)) it.pontos.push(alvo); await salvaItem(it); fecha(); redesenhaPagina(); toast('Item movido para o ponto ' + rotuloPonto(PONTO.get(alvo).p) + '.'); }); };
+      $('#mvQ', ov).oninput = debounce(des, 120); des();
+    } });
 }
 function menu(anchor, itens) {
   $$('.menu').forEach(m => m.remove());
@@ -1496,43 +1646,146 @@ function menu(anchor, itens) {
   m.innerHTML = itens.map((x, i) => x === '-' ? '<hr>' : `<button data-i="${i}" ${x.perigo ? 'style="color:var(--bad)"' : ''}>${x.txt}</button>`).join('');
   document.body.appendChild(m);
   const r = anchor.getBoundingClientRect();
-  m.style.top = Math.min(r.bottom + 4, innerHeight - m.offsetHeight - 8) + 'px';
+  m.style.top = Math.max(8, Math.min(r.bottom + 4, innerHeight - m.offsetHeight - 8)) + 'px';
   m.style.left = Math.max(8, Math.min(r.left, innerWidth - m.offsetWidth - 8)) + 'px';
-  $$('button', m).forEach(b => b.onclick = () => { m.remove(); itens[+b.dataset.i].fn(); });
+  $$('button[data-i]', m).forEach(b => b.onclick = () => { m.remove(); itens[+b.dataset.i].fn(); });
   setTimeout(() => document.addEventListener('mousedown', function f(e) { if (!m.contains(e.target)) { m.remove(); document.removeEventListener('mousedown', f); } }), 0);
   return m;
 }
 function menuItem(anchor, it) {
   menu(anchor, [
-    { txt: 'Classificação (tipo, ponto, assunto)…', fn: () => editaItem(it) },
-    { txt: 'Duplicar', fn: async () => { const c = Object.assign({}, it, { id: uid(), criado: now(), titulo: it.titulo + ' (cópia)' }); await salvaItem(c); redesenhaPagina(); } },
+    { txt: 'Classificação (tipo, pontos, assunto)…', fn: () => editaItem(it) },
+    { txt: 'Duplicar', fn: async () => { const c = Object.assign({}, it, { id: uid(), criado: now(), titulo: (it.titulo || '') + ' (cópia)' }); await salvaItem(c); redesenhaPagina(); } },
+    { txt: 'Restaurar ordem automática do grupo', fn: async () => { for (const el of $$('.it', $('#it-' + it.id).closest('.grp'))) { const x = S.itens.get(el.dataset.id); delete x.ordem; await salvaItem(x, { silencioso: true }); } Sync.agenda(); redesenhaPagina(); } },
     { txt: it.divergeDe ? 'Ver item com que diverge' : 'Fontes: ' + h((it.fontes || []).join('; ') || 'não informada'), fn: () => { if (it.divergeDe && S.itens.get(it.divergeDe)) abreDisciplina(S.itens.get(it.divergeDe).disc, { item: it.divergeDe }); } },
     ...(it.divergeDe ? [{ txt: 'Marcar divergência como resolvida', fn: async () => { delete it.divergeDe; delete it.notaDiv; await salvaItem(it); redesenhaPagina(); } }] : []),
+    ...(Cad.ponto && Cad.ponto !== '__sem' ? [{ txt: 'Desvincular deste ponto', fn: async () => { it.pontos = (it.pontos || []).filter(x => x !== Cad.ponto); await salvaItem(it); redesenhaPagina(); } }] : []),
     '-',
-    { txt: 'Excluir item', perigo: true, fn: async () => { if (await confirma('Excluir este item do seu material?', 'Excluir')) { await removeItem(it.id); redesenhaPagina(); desenhaDisciplinas(); } } },
+    { txt: 'Excluir item', perigo: true, fn: async () => { if (await confirma('Excluir este item do seu material (de todos os pontos e editais)?', 'Excluir')) { await removeItem(it.id); redesenhaPagina(); desenhaDisciplinas(); } } },
   ]);
 }
-function menuTipos(anchor) {
+function menuExibicao(anchor) {
   const sel = new Set(Cad.tipos || TIPOS.map(t => t[0]));
   const m = menu(anchor, []);
-  m.innerHTML = TIPOS.map(([k, n]) => `<label style="display:flex;gap:8px;padding:6px 10px;font-size:13px;cursor:pointer"><input type="checkbox" value="${k}" ${sel.has(k) ? 'checked' : ''}>${n}</label>`).join('') + `<hr><div style="display:flex;gap:6px;padding:4px"><button class="btn sm" id="tAll">Todos</button><span class="sp"></span><button class="btn sm pri" id="tOk">Aplicar</button></div>`;
+  m.style.minWidth = '280px';
+  m.innerHTML = `<div class="small muted" style="padding:6px 10px 2px;font-weight:700">Agrupar dentro do ponto</div>
+    <div style="padding:4px 8px 8px"><div class="seg" id="agr"><button data-g="tipo" class="${S.cfg.agrupar === 'tipo' ? 'on' : ''}">Tipo → assunto</button><button data-g="assunto" class="${S.cfg.agrupar === 'assunto' ? 'on' : ''}">Assunto → tipo</button></div></div><hr>
+    <div class="small muted" style="padding:4px 10px;font-weight:700">Tipos exibidos</div>
+    ${TIPOS.map(([k, n]) => `<label style="display:flex;gap:8px;padding:5px 10px;font-size:13px;cursor:pointer;align-items:center"><input type="checkbox" value="${k}" ${sel.has(k) ? 'checked' : ''}><span style="width:10px;height:10px;border-radius:2px;background:${estiloTipo(k).cor}"></span>${n}</label>`).join('')}
+    <hr><div style="display:flex;gap:6px;padding:4px"><button class="btn sm" id="tAll">Todos</button><span class="sp"></span><button class="btn sm pri" id="tOk">Aplicar</button></div>`;
+  $$('#agr button', m).forEach(b => b.onclick = () => { S.cfg.agrupar = b.dataset.g; salvaCfg(); $$('#agr button', m).forEach(x => x.classList.toggle('on', x === b)); redesenhaPagina(); });
   $('#tAll', m).onclick = () => $$('input', m).forEach(i => i.checked = true);
-  $('#tOk', m).onclick = () => { const v = $$('input:checked', m).map(i => i.value); Cad.tipos = v.length === TIPOS.length || !v.length ? null : v; m.remove(); redesenhaPagina(); };
+  $('#tOk', m).onclick = () => { const v = $$('input:checked', m).map(i => i.value); Cad.tipos = v.length === TIPOS.length || !v.length ? null : v; m.remove(); redesenhaPagina(); $('#exibir').textContent = Cad.tipos ? `Exibição (${Cad.tipos.length} tipos)` : 'Exibição'; };
 }
 function menuExporta(anchor, fmt) {
-  const pa = Cad.pontoAtivo;
-  const f = (escopo) => () => exporta(fmt, escopo);
+  const pa = Cad.ponto; const ps = pontosDaDisc(S.lente, Cad.disc);
+  const comMat = listaPontosNav(Cad.disc).filter(p => itensDoPonto(Cad.disc, S.lente, p).length || (S.notas.get(p) && textoPlano(S.notas.get(p).html)));
+  const w = fmt === 'word';
   menu(anchor, [
-    { txt: 'Disciplina inteira (todos os pontos)', fn: f('tudo') },
-    { txt: 'Somente pontos com material', fn: f('com') },
-    ...(pa ? [{ txt: 'Somente o ponto atual' + (pa === '__sem' ? ' (sem ponto)' : ' (' + rotuloPonto(PONTO.get(pa)?.p || { n: '' }) + ')'), fn: f('ponto') }] : []),
+    ...(pa ? [{ txt: `Este ponto${pa === '__sem' ? ' (sem ponto)' : ' (' + h(rotuloPonto(PONTO.get(pa).p)) + ')'}${w ? ' — .docx' : ''}`, fn: () => exporta(fmt, [pa]) }] : []),
+    '-',
+    { txt: `${w ? 'Um arquivo por ponto (.zip)' : 'PDF único, um ponto por página'} — pontos com material (${comMat.length})`, fn: () => exporta(fmt, comMat) },
+    { txt: `${w ? 'Um arquivo por ponto (.zip)' : 'PDF único, um ponto por página'} — todos os ${ps.length} pontos`, fn: () => exporta(fmt, listaPontosNav(Cad.disc)) },
     { txt: 'Escolher pontos…', fn: () => escolhePontosExport(fmt) },
   ]);
 }
 function escolhePontosExport(fmt) {
   const ps = pontosDaDisc(S.lente, Cad.disc);
-  modal({ titulo: 'Pontos a exportar', largo: true, corpo: `<div class="picker-list" style="max-height:55vh">${ps.map(p => `<label class="pi"><input type="checkbox" value="${p.id}"><div><b>${h(rotuloPonto(p))}.</b> ${h(tituloPonto(p))}</div></label>`).join('')}<label class="pi"><input type="checkbox" value="__sem"><div>Material sem ponto neste edital</div></label></div>`,
-    botoes: [{ txt: 'Cancelar' }, { txt: 'Exportar', cls: 'pri', fn: (ov) => { const ids = $$('input:checked', ov).map(i => i.value); if (!ids.length) { toast('Marque ao menos um ponto.'); return false; } exporta(fmt, 'lista', ids); } }] });
+  modal({ titulo: 'Pontos a exportar', largo: true, corpo: `<div class="picker-list" style="max-height:55vh">${ps.map(p => `<label class="pi"><input type="checkbox" value="${p.id}"><div><b>${h(rotuloPonto(p))}.</b> ${h(tituloPonto(p))} <span class="muted small">(${itensDoPonto(Cad.disc, S.lente, p.id).length})</span></div></label>`).join('')}${contaSemPonto(Cad.disc, S.lente) ? '<label class="pi"><input type="checkbox" value="__sem"><div>Material sem ponto neste edital</div></label>' : ''}</div>`,
+    botoes: [{ txt: 'Cancelar' }, { txt: 'Exportar', cls: 'pri', fn: (ov) => { const ids = $$('input:checked', ov).map(i => i.value); if (!ids.length) { toast('Marque ao menos um ponto.'); return false; } exporta(fmt, ids); } }] });
+}
+
+/* ---------- barra de formatação (estilo Word) ---------- */
+const PALETA = ['#000000', '#434343', '#666666', '#999999', '#c00000', '#e06666', '#b45f06', '#e69138', '#bf9000', '#f1c232', '#38761d', '#6aa84f', '#134f5c', '#45818e', '#0b5394', '#3d85c6', '#351c75', '#674ea7', '#741b47', '#a64d79'];
+const MARCA = ['#fff59d', '#ffe0b2', '#c8e6c9', '#b3e5fc', '#f8bbd0', '#e1bee7', '#ffccbc', '#d7ccc8', '#e0e0e0'];
+function barraFormatacao() {
+  const fontes = ['Cambria', 'Georgia', 'Times New Roman', 'Garamond', 'Book Antiqua', 'Palatino Linotype', 'Calibri', 'Arial', 'Verdana'];
+  const tams = [8, 9, 10, 10.5, 11, 12, 13, 14, 16, 18, 20, 24, 28, 32];
+  return `<div class="fmt" id="fmt">
+    <button data-c="undo" title="Desfazer (Ctrl+Z)">↶</button><button data-c="redo" title="Refazer (Ctrl+Y)">↷</button><span class="sepv"></span>
+    <select id="fFonte" title="Fonte">${fontes.map(f => `<option style="font-family:'${f}'">${f}</option>`).join('')}</select>
+    <select id="fTam" title="Tamanho da fonte (pt)" style="width:64px">${tams.map(t => `<option ${t === 12 ? 'selected' : ''}>${t}</option>`).join('')}</select><span class="sepv"></span>
+    <button data-c="bold" title="Negrito (Ctrl+B)"><b>N</b></button>
+    <button data-c="italic" title="Itálico (Ctrl+I)"><i>I</i></button>
+    <button data-c="underline" title="Sublinhado (Ctrl+U)"><u>S</u></button>
+    <button data-c="strikeThrough" title="Tachado"><s>ab</s></button>
+    <button data-c="superscript" title="Sobrescrito">x²</button>
+    <button data-c="subscript" title="Subscrito">x₂</button><span class="sepv"></span>
+    <button data-pal="cor" title="Cor do texto"><span style="border-bottom:3px solid #c00000;line-height:1">A</span></button>
+    <button data-pal="marca" title="Realce (marca-texto)"><span style="background:#fff59d;padding:0 4px;color:#222">ab</span></button>
+    <button data-pal="fundo" title="Cor de fundo do parágrafo"><span style="display:inline-block;width:16px;height:14px;background:#dbe7f5;border:1px solid #9fb3cc"></span></button><span class="sepv"></span>
+    <button data-c="justifyLeft" title="Alinhar à esquerda">${ic4('l')}</button>
+    <button data-c="justifyCenter" title="Centralizar">${ic4('c')}</button>
+    <button data-c="justifyRight" title="Alinhar à direita">${ic4('r')}</button>
+    <button data-c="justifyFull" title="Justificar">${ic4('j')}</button><span class="sepv"></span>
+    <button data-c="insertUnorderedList" title="Lista com marcadores">•≡</button>
+    <button data-c="insertOrderedList" title="Lista numerada">1≡</button>
+    <button data-c="recuoMenos" title="Diminuir recuo">⇤</button>
+    <button data-c="recuoMais" title="Aumentar recuo">⇥</button>
+    <button data-c="quote" title="Citação recuada">❝</button>
+    <button data-c="subtitulo" title="Subtítulo dentro do item">T</button><span class="sepv"></span>
+    <button data-c="tabela" title="Inserir tabela">▦</button>
+    <button data-c="insertHorizontalRule" title="Linha horizontal">―</button>
+    <button data-c="limpar" title="Limpar formatação">⌫</button>
+  </div>`;
+}
+function ic4(a) { const w = { l: [14, 10, 14, 8], c: [14, 10, 14, 10], r: [14, 10, 14, 8], j: [14, 14, 14, 14] }[a]; const x = (ww) => a === 'l' || a === 'j' ? 3 : a === 'r' ? 17 - ww : (20 - ww) / 2; return `<svg class="i sm" viewBox="0 0 20 20" style="stroke-width:1.8">${w.map((ww, i) => `<path d="M${x(ww)} ${4 + i * 4}h${ww}"/>`).join('')}</svg>`; }
+const Sel = { r: null };
+document.addEventListener('selectionchange', () => { const s = getSelection(); if (s.rangeCount && s.anchorNode && s.anchorNode.parentElement?.closest?.('.ic[contenteditable="true"]')) Sel.r = s.getRangeAt(0).cloneRange(); });
+function restauraSel() { if (!Sel.r) return null; const s = getSelection(); s.removeAllRanges(); s.addRange(Sel.r); const ic = Sel.r.startContainer.parentElement?.closest?.('.ic') || (Sel.r.startContainer.closest && Sel.r.startContainer.closest('.ic')); ic?.focus({ preventScroll: true }); return ic; }
+function icAtual() { const n = Sel.r?.startContainer; if (!n) return null; return (n.nodeType === 1 ? n : n.parentElement).closest('.ic'); }
+function notifica(ic) { ic = ic || icAtual(); if (ic) ic.dispatchEvent(new Event('input', { bubbles: true })); }
+function blocosSel(ic) {
+  const r = Sel.r; if (!r || !ic) return [];
+  let bs = $$('p,li,blockquote,h4,h5,h6,td,th', ic).filter(b => r.intersectsNode(b) && !b.querySelector('p,li'));
+  if (!bs.length) { const n = r.startContainer; const b = (n.nodeType === 1 ? n : n.parentElement).closest('p,li,blockquote,h4,h5,h6,td,th'); if (b) bs = [b]; }
+  return bs;
+}
+function execFmt(c, v) {
+  const ic = restauraSel(); if (!ic) return toast('Clique no texto que deseja formatar.');
+  if (c === 'quote') { const b = blocosSel(ic)[0]; document.execCommand('formatBlock', false, b && b.closest('blockquote') ? 'p' : 'blockquote'); }
+  else if (c === 'subtitulo') { const b = blocosSel(ic)[0]; document.execCommand('formatBlock', false, b && b.tagName === 'H4' ? 'p' : 'h4'); }
+  else if (c === 'recuoMais' || c === 'recuoMenos') for (const b of blocosSel(ic)) { const at = parseFloat(b.style.marginLeft) || 0; const nv = Math.max(0, at + (c === 'recuoMais' ? 36 : -36)); b.style.marginLeft = nv ? nv + 'pt' : ''; }
+  else if (c === 'tabela') { const n = prompt('Tabela: colunas x linhas', '2x3'); const m = /(\d+)\s*x\s*(\d+)/i.exec(n || ''); if (!m) return; const [cc, ll] = [Math.min(+m[1], 8), Math.min(+m[2], 30)]; document.execCommand('insertHTML', false, `<table>${Array.from({ length: ll }, (_, i) => `<tr>${Array.from({ length: cc }, () => i === 0 ? '<th>&nbsp;</th>' : '<td>&nbsp;</td>').join('')}</tr>`).join('')}</table><p></p>`); }
+  else if (c === 'limpar') { document.execCommand('removeFormat'); for (const b of blocosSel(ic)) { b.style.backgroundColor = ''; b.style.marginLeft = ''; } }
+  else if (c === 'fonte') { document.execCommand('styleWithCSS', false, false); document.execCommand('fontName', false, v); }
+  else if (c === 'tam') {
+    document.execCommand('styleWithCSS', false, false); document.execCommand('fontSize', false, '7');
+    $$('font[size="7"]', ic).forEach(f => { const sp = document.createElement('span'); sp.style.fontSize = v + 'pt'; sp.append(...f.childNodes); f.replaceWith(sp); $$('span', sp).forEach(x => { x.style.fontSize = ''; }); });
+  }
+  else if (c === 'cor') { document.execCommand('styleWithCSS', false, true); document.execCommand('foreColor', false, v); document.execCommand('styleWithCSS', false, false); }
+  else if (c === 'marca') { document.execCommand('styleWithCSS', false, true); if (!document.execCommand('hiliteColor', false, v)) document.execCommand('backColor', false, v); document.execCommand('styleWithCSS', false, false); }
+  else if (c === 'fundo') for (const b of blocosSel(ic)) b.style.backgroundColor = v === 'transparent' ? '' : v;
+  else document.execCommand(c, false, null);
+  const s = getSelection(); if (s.rangeCount) Sel.r = s.getRangeAt(0).cloneRange();
+  notifica(ic);
+}
+function paletaPop(anchor, tipo) {
+  const cores = tipo === 'cor' ? PALETA : MARCA.concat(tipo === 'fundo' ? ['#f1f4fa', '#fdf8ec', '#edf6f2'] : []);
+  const m = menu(anchor, []);
+  m.style.minWidth = '0';
+  m.innerHTML = `<div style="display:grid;grid-template-columns:repeat(${tipo === 'cor' ? 5 : 4},26px);gap:5px;padding:6px">${cores.map(c => `<button data-cor="${c}" title="${c}" style="width:26px;height:26px;border-radius:5px;border:1px solid rgba(0,0,0,.15);background:${c};padding:0"></button>`).join('')}</div>
+    <div style="display:flex;gap:6px;padding:4px 6px 6px;align-items:center"><input type="color" id="corLivre" value="${tipo === 'cor' ? '#c00000' : '#fff59d'}" style="width:34px;height:28px;border:0;background:none;padding:0"><button class="btn sm" id="corOk">Aplicar</button>${tipo !== 'cor' ? '<button class="btn sm" id="corNada">Sem cor</button>' : '<button class="btn sm" id="corNada">Automática</button>'}</div>`;
+  $$('[data-cor]', m).forEach(b => b.onmousedown = (e) => { e.preventDefault(); m.remove(); execFmt(tipo, b.dataset.cor); });
+  $('#corOk', m).onclick = () => { m.remove(); execFmt(tipo, $('#corLivre', m).value); };
+  $('#corNada', m).onclick = () => { m.remove(); execFmt(tipo, tipo === 'cor' ? '#1b1b1b' : 'transparent'); };
+}
+function ligaFormatacao() {
+  $$('#fmt button[data-c]').forEach(b => b.onmousedown = (e) => { e.preventDefault(); execFmt(b.dataset.c); });
+  $$('#fmt button[data-pal]').forEach(b => b.onmousedown = (e) => { e.preventDefault(); paletaPop(b, b.dataset.pal); });
+  $('#fFonte').onchange = (e) => execFmt('fonte', e.target.value);
+  $('#fTam').onchange = (e) => execFmt('tam', e.target.value);
+  // reflete a formatação do ponto do cursor nos seletores
+  if (!Sel.ligado) { document.addEventListener('selectionchange', refleteFormato); Sel.ligado = true; }
+}
+function refleteFormato() {
+  if (S.rota !== 'disc' || !$('#fFonte')) return;
+  const n = Sel.r?.startContainer; if (!n) return;
+  const el = n.nodeType === 1 ? n : n.parentElement; if (!el?.closest?.('.ic')) return;
+  const cs = getComputedStyle(el);
+  const pt = Math.round(parseFloat(cs.fontSize) * 0.75 * 2) / 2;
+  const sel = $('#fTam'); if (![...sel.options].some(o => +o.value === pt)) { const o = document.createElement('option'); o.textContent = pt; sel.appendChild(o); } sel.value = String(pt);
+  const fam = cs.fontFamily.split(',')[0].replace(/["']/g, '').trim(); const sf = $('#fFonte'); if ([...sf.options].some(o => o.value === fam)) sf.value = fam;
 }
 
 /* ---------- edição de metadados / novo item ---------- */
@@ -1557,7 +1810,7 @@ function editaItem(it, base = {}) {
       if (novo) { x.html = limpaHTML($('#mHtml', ov).innerHTML); if (!textoPlano(x.html) && !x.titulo) { toast('Informe título ou conteúdo.'); return false; } }
       const alvo = novo ? x : Object.assign(it, { tipo: x.tipo, disc: x.disc, titulo: x.titulo, ref: x.ref, assunto: x.assunto, pontos: x.pontos });
       await salvaItem(alvo); desenhaDisciplinas();
-      if (S.rota === 'disc') abreDisciplina(Cad.disc, { item: alvo.id });
+      if (S.rota === 'disc') { const pts = listaPontosNav(Cad.disc); abreDisciplina(Cad.disc, { item: alvo.id, ponto: (alvo.pontos || []).includes(Cad.ponto) ? Cad.ponto : undefined }); }
     } }],
     aoAbrir: (ov) => {
       const pts = () => { $('#mPts', ov).innerHTML = chipsPontos(x.pontos) + '<button class="btn sm" id="mAddP">+ ponto</button>'; $$('[data-rmp]', ov).forEach(b => b.onclick = () => { x.pontos = x.pontos.filter(p => p !== b.dataset.rmp); pts(); }); $('#mAddP', ov).onclick = () => escolhePontos($('#mDisc', ov).value, x.pontos, (ids) => { x.pontos = ids; pts(); }); };
@@ -1566,151 +1819,227 @@ function editaItem(it, base = {}) {
 }
 
 /* =========================================================
-   Exportação: Word (.docx nativo) e PDF (impressão A4)
+   Exportação: Word (.docx nativo, um arquivo por ponto) e PDF (A4)
    ========================================================= */
-function opcoesEscopo(escopo, ids) {
-  if (escopo === 'com') return { soComMaterial: true };
-  if (escopo === 'ponto') return { pontos: [Cad.pontoAtivo] };
-  if (escopo === 'lista') return { pontos: ids };
-  return {};
+async function exporta(fmt, pids) {
+  pids = (pids || []).filter(Boolean);
+  if (!pids.length) return toast('Nenhum ponto para exportar.');
+  if (fmt === 'pdf') return imprime(Cad.disc, S.lente, pids);
+  try {
+    toast(pids.length > 1 ? `Gerando ${pids.length} arquivos Word…` : 'Gerando o arquivo Word…');
+    await carregaScript('lib/docx.js');
+    const e = edital(S.lente);
+    if (pids.length === 1) { const { blob, nome } = await docxPonto(Cad.disc, S.lente, pids[0]); baixa(blob, nome); }
+    else {
+      const arqs = [];
+      for (const [i, pid] of pids.entries()) { const { blob, nome } = await docxPonto(Cad.disc, S.lente, pid, i + 1); arqs.push({ nome, dados: new Uint8Array(await blob.arrayBuffer()) }); }
+      baixa(zipa(arqs), nomeArq(`${e.sigla} - ${discNome(Cad.disc)} - ${pids.length} pontos - ${fmtData(now()).replace(/\//g, '-')}.zip`));
+    }
+    toast('Exportação concluída.');
+  } catch (er) { console.error(er); toast('Falha ao gerar o Word: ' + er.message, 'bad'); }
 }
-async function exporta(fmt, escopo, ids) {
-  const opts = Object.assign({ tipos: Cad.tipos }, opcoesEscopo(escopo, ids));
-  if (fmt === 'pdf') return imprime(Cad.disc, S.lente, opts);
-  try { toast('Gerando o arquivo Word…'); await exportaDocx(Cad.disc, S.lente, opts); }
-  catch (e) { console.error(e); toast('Falha ao gerar o Word: ' + e.message, 'bad'); }
-}
-function imprime(disc, lente, opts) {
+function imprime(disc, lente, pids) {
   const pa = $('#printArea');
-  pa.innerHTML = `<div class="page" style="${estiloPagina()}">${htmlDocumento(disc, lente, Object.assign({ editavel: false }, opts))}</div>`;
-  document.title = `${discNome(disc)} — ${edital(lente).sigla}`;
-  setTimeout(() => { window.print(); setTimeout(() => { document.title = 'Cátedra'; }, 500); }, 80);
+  pa.innerHTML = pids.map(pid => `<div class="page" style="${estiloPagina()}">${htmlPonto(disc, lente, pid, { editavel: false })}</div>`).join('');
+  const x = pids.length === 1 && PONTO.get(pids[0]);
+  document.title = x ? `${edital(lente).sigla} - ${discNome(disc)} - Ponto ${rotuloPonto(x.p)}` : `${edital(lente).sigla} - ${discNome(disc)}`;
+  setTimeout(() => { window.print(); setTimeout(() => { document.title = 'Cátedra'; }, 800); }, 120);
 }
 function baixa(blob, nome) {
   const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = nome;
   document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 4000);
 }
-const nomeArq = (s) => s.replace(/[\\/:*?"<>|]/g, '-');
+const nomeArq = (s) => s.replace(/[\\/:*?"<>|]/g, '-').replace(/\s+/g, ' ').trim();
 
-async function exportaDocx(disc, lente, opts) {
-  await carregaScript('lib/docx.js');
-  const D = docx; const e = edital(lente);
+/* ---------- ZIP (sem compressão) para "um arquivo por ponto" ---------- */
+const CRC = (() => { const t = new Uint32Array(256); for (let n = 0; n < 256; n++) { let c = n; for (let k = 0; k < 8; k++) c = c & 1 ? 0xEDB88320 ^ (c >>> 1) : c >>> 1; t[n] = c >>> 0; } return t; })();
+function crc32(b) { let c = 0xFFFFFFFF; for (let i = 0; i < b.length; i++) c = CRC[(c ^ b[i]) & 0xFF] ^ (c >>> 8); return (c ^ 0xFFFFFFFF) >>> 0; }
+function zipa(arqs) {
+  const enc = new TextEncoder(); const partes = []; const central = []; let off = 0;
+  const d = new Date(); const tm = (d.getHours() << 11) | (d.getMinutes() << 5) | (d.getSeconds() >> 1); const dt = ((d.getFullYear() - 1980) << 9) | ((d.getMonth() + 1) << 5) | d.getDate();
+  const usados = new Set();
+  for (const a of arqs) {
+    let nome = a.nome; let k = 2; while (usados.has(nome)) nome = a.nome.replace(/(\.\w+)$/, ` (${k++})$1`); usados.add(nome);
+    const n = enc.encode(nome); const crc = crc32(a.dados); const sz = a.dados.length;
+    const lh = new DataView(new ArrayBuffer(30));
+    lh.setUint32(0, 0x04034b50, true); lh.setUint16(4, 20, true); lh.setUint16(6, 0x0800, true); lh.setUint16(8, 0, true); lh.setUint16(10, tm, true); lh.setUint16(12, dt, true);
+    lh.setUint32(14, crc, true); lh.setUint32(18, sz, true); lh.setUint32(22, sz, true); lh.setUint16(26, n.length, true); lh.setUint16(28, 0, true);
+    partes.push(new Uint8Array(lh.buffer), n, a.dados);
+    const ch = new DataView(new ArrayBuffer(46));
+    ch.setUint32(0, 0x02014b50, true); ch.setUint16(4, 20, true); ch.setUint16(6, 20, true); ch.setUint16(8, 0x0800, true); ch.setUint16(10, 0, true); ch.setUint16(12, tm, true); ch.setUint16(14, dt, true);
+    ch.setUint32(16, crc, true); ch.setUint32(20, sz, true); ch.setUint32(24, sz, true); ch.setUint16(28, n.length, true); ch.setUint32(42, off, true);
+    central.push(new Uint8Array(ch.buffer), n);
+    off += 30 + n.length + sz;
+  }
+  const tamC = central.reduce((s, x) => s + x.length, 0);
+  const fim = new DataView(new ArrayBuffer(22));
+  fim.setUint32(0, 0x06054b50, true); fim.setUint16(8, arqs.length, true); fim.setUint16(10, arqs.length, true); fim.setUint32(12, tamC, true); fim.setUint32(16, off, true);
+  return new Blob([...partes, ...central, new Uint8Array(fim.buffer)], { type: 'application/zip' });
+}
+
+/* ---------- HTML -> Word ---------- */
+function tamPt(v) {
+  if (!v) return null; v = String(v).trim();
+  let m = v.match(/^([\d.]+)pt$/); if (m) return +m[1];
+  m = v.match(/^([\d.]+)px$/); if (m) return +m[1] * 0.75;
+  m = v.match(/^([\d.]+)(em|rem)$/); if (m) return +m[1] * (S.cfg.tamDoc || 12);
+  const k = { 'xx-small': 7, 'x-small': 7.5, small: 10, medium: 12, large: 13.5, 'x-large': 18, 'xx-large': 24, 'xxx-large': 36 }; return k[v] || null;
+}
+function conversorWord(D) {
   const fonte = S.cfg.fonteDoc || 'Cambria';
   const linha = Math.round((S.cfg.entrelinha || 1.5) * 240);
-  const tam = Math.round((S.cfg.tamDoc || 12) * 2);
   const J = D.AlignmentType.JUSTIFIED;
   let numInst = 0;
-
-  /* ---- HTML -> parágrafos do Word ---- */
-  function runs(node, f = {}) {
+  const estiloInline = (el, f) => {
+    const g = Object.assign({}, f); const st = el.style;
+    const t = el.tagName;
+    if (t === 'EM' || t === 'I') g.i = true; if (t === 'STRONG' || t === 'B') g.b = true; if (t === 'U') g.u = true; if (t === 'S' || t === 'STRIKE') g.s = true; if (t === 'SUP') g.sup = true; if (t === 'SUB') g.sub = true;
+    if (t === 'MARK') g.shade = corHex(st.backgroundColor) || 'FFF59D';
+    if (st) {
+      if (st.color) g.color = corHex(st.color) || g.color;
+      if (st.backgroundColor && t !== 'P' && t !== 'LI') { const c = corHex(st.backgroundColor); if (c) g.shade = c; }
+      if (st.fontSize) { const p = tamPt(st.fontSize); if (p) g.size = Math.round(p * 2); }
+      if (st.fontFamily) g.font = st.fontFamily.split(',')[0].replace(/["']/g, '').trim();
+      if (/bold|[6-9]00/.test(st.fontWeight)) g.b = true;
+      if (/italic/.test(st.fontStyle)) g.i = true;
+      const td = st.textDecorationLine || st.textDecoration || '';
+      if (/underline/.test(td)) g.u = true; if (/line-through/.test(td)) g.s = true;
+    }
+    return g;
+  };
+  const runs = (node, f = {}) => {
     const out = [];
     for (const ch of node.childNodes) {
-      if (ch.nodeType === 3) { const t = ch.textContent.replace(/\s+/g, ' '); if (t) out.push(new D.TextRun({ text: t, italics: f.i, bold: f.b, underline: f.u ? {} : undefined, highlight: f.m ? 'yellow' : undefined, strike: f.s, superScript: f.sup, subScript: f.sub, font: fonte })); continue; }
+      if (ch.nodeType === 3) {
+        const t = ch.textContent.replace(/[\n\r\t]+/g, ' ').replace(/ {2,}/g, ' '); if (!t) continue;
+        out.push(new D.TextRun({ text: t, italics: f.i, bold: f.b, underline: f.u ? {} : undefined, strike: f.s, superScript: f.sup, subScript: f.sub, color: f.color, size: f.size, font: f.font || fonte, smallCaps: f.sc, characterSpacing: f.cs, shading: f.shade ? { type: D.ShadingType.CLEAR, fill: f.shade, color: 'auto' } : undefined }));
+        continue;
+      }
       if (ch.nodeType !== 1) continue;
-      const t = ch.tagName;
-      if (t === 'BR') { out.push(new D.TextRun({ break: 1 })); continue; }
-      const g = Object.assign({}, f);
-      if (t === 'EM' || t === 'I') g.i = !f.i; if (t === 'STRONG' || t === 'B') g.b = true; if (t === 'U') g.u = true; if (t === 'MARK') g.m = true; if (t === 'S') g.s = true; if (t === 'SUP') g.sup = true; if (t === 'SUB') g.sub = true;
-      out.push(...runs(ch, g));
+      if (ch.tagName === 'BR') { out.push(new D.TextRun({ break: 1 })); continue; }
+      out.push(...runs(ch, estiloInline(ch, f)));
     }
     return out;
-  }
-  function alinh(el) { const a = el.style && el.style.textAlign; return a === 'center' ? D.AlignmentType.CENTER : a === 'right' ? D.AlignmentType.RIGHT : a === 'left' ? D.AlignmentType.LEFT : J; }
-  function blocos(html, extra = {}) {
+  };
+  const alinh = (el, pad) => { const a = el.style && el.style.textAlign; return a === 'center' ? D.AlignmentType.CENTER : a === 'right' ? D.AlignmentType.RIGHT : a === 'left' ? D.AlignmentType.LEFT : pad || J; };
+  /** propriedades de parágrafo: moldura do tipo + estilos próprios do bloco */
+  const par = (el, base, extra = {}) => {
+    const o = Object.assign({}, base, extra);
+    const ml = el && el.style ? tamPt(el.style.marginLeft) : null;
+    if (ml) o.indent = Object.assign({}, o.indent || {}, { left: ((o.indent && o.indent.left) || 0) + Math.round(ml * 20) });
+    const bg = el && el.style ? corHex(el.style.backgroundColor) : null;
+    if (bg) o.shading = { type: D.ShadingType.CLEAR, fill: bg, color: 'auto' };
+    return o;
+  };
+  /** converte HTML em parágrafos; base = moldura (bordas/sombreamento) aplicada a cada parágrafo */
+  function blocos(html, base = {}, fBase = {}) {
     const d = document.createElement('div'); d.innerHTML = html || '';
     const out = []; let solto = [];
-    const fechaSolto = () => { if (solto.length) { const w = document.createElement('p'); solto.forEach(n => w.appendChild(n.cloneNode(true))); out.push(new D.Paragraph(Object.assign({ children: runs(w), alignment: J }, extra))); solto = []; } };
+    const fechaSolto = () => { if (solto.length) { const w = document.createElement('p'); solto.forEach(n => w.appendChild(n.cloneNode(true))); out.push(new D.Paragraph(par(w, base, { children: runs(w, fBase), alignment: J }))); solto = []; } };
     const lista = (el, nivel, numerada, inst) => {
       for (const li of el.children) {
         if (li.tagName !== 'LI') continue;
         const sub = [...li.children].filter(c => c.tagName === 'UL' || c.tagName === 'OL');
         const clone = li.cloneNode(true); clone.querySelectorAll('ul,ol').forEach(x => x.remove());
-        out.push(new D.Paragraph(Object.assign({ children: runs(clone), alignment: J, spacing: { after: 60, line: linha } }, numerada ? { numbering: { reference: 'num', level: Math.min(nivel, 2), instance: inst } } : { bullet: { level: Math.min(nivel, 2) } }, extra.indent ? {} : {})));
+        const b2 = Object.assign({}, base); delete b2.indent;
+        out.push(new D.Paragraph(par(li, b2, Object.assign({ children: runs(clone, estiloInline(li, fBase)), alignment: alinh(li), spacing: { after: 60, line: linha } }, numerada ? { numbering: { reference: 'num', level: Math.min(nivel, 2), instance: inst } } : { bullet: { level: Math.min(nivel, 2) } }))));
         for (const s of sub) lista(s, nivel + 1, s.tagName === 'OL', s.tagName === 'OL' ? ++numInst : 0);
       }
     };
     for (const ch of d.childNodes) {
-      if (ch.nodeType === 3 || (ch.nodeType === 1 && ['EM','I','STRONG','B','U','MARK','SPAN','S','SUP','SUB','BR'].includes(ch.tagName))) { solto.push(ch); continue; }
+      if (ch.nodeType === 3 || (ch.nodeType === 1 && ['EM','I','STRONG','B','U','MARK','SPAN','S','SUP','SUB','BR','FONT'].includes(ch.tagName))) { solto.push(ch); continue; }
       fechaSolto();
       if (ch.nodeType !== 1) continue;
       const t = ch.tagName;
-      if (t === 'P' || t === 'H5' || t === 'H6' || t === 'DIV') out.push(new D.Paragraph(Object.assign({ children: runs(ch, t.startsWith('H') ? { b: !S.cfg.semNegrito } : {}), alignment: alinh(ch) }, extra)));
+      if (t === 'P' || t === 'DIV') out.push(new D.Paragraph(par(ch, base, { children: runs(ch, estiloInline(ch, fBase)), alignment: alinh(ch) })));
+      else if (t === 'H4' || t === 'H5' || t === 'H6') out.push(new D.Paragraph(par(ch, base, { children: runs(ch, Object.assign(estiloInline(ch, fBase), { size: Math.round(((S.cfg.tamDoc || 12) + 1) * 2), color: fBase.corTitulo || '1F2A44', b: !S.cfg.semNegrito || fBase.b })), alignment: alinh(ch, D.AlignmentType.LEFT), keepNext: true, spacing: { before: 120, after: 60 } })));
       else if (t === 'BLOCKQUOTE') {
-        const inner = ch.querySelector('p') ? blocos(ch.innerHTML, { style: 'Citacao' }) : [new D.Paragraph({ children: runs(ch), style: 'Citacao', alignment: J })];
-        out.push(...inner);
+        const ind = { indent: { left: ((base.indent && base.indent.left) || 0) + 850, right: (base.indent && base.indent.right) || 0 } };
+        const b2 = Object.assign({}, base, ind, { spacing: { after: 100, line: 276 } });
+        if (ch.querySelector('p,ul,ol')) out.push(...blocos(ch.innerHTML, b2, Object.assign({}, fBase, { size: Math.round(((S.cfg.tamDoc || 12) - 1) * 2) })));
+        else out.push(new D.Paragraph(par(ch, b2, { children: runs(ch, Object.assign({}, fBase, { size: Math.round(((S.cfg.tamDoc || 12) - 1) * 2) })), alignment: alinh(ch) })));
       }
       else if (t === 'UL' || t === 'OL') lista(ch, 0, t === 'OL', t === 'OL' ? ++numInst : 0);
+      else if (t === 'HR') out.push(new D.Paragraph(Object.assign({}, base, { children: [], border: Object.assign({}, base.border || {}, { bottom: { style: D.BorderStyle.SINGLE, size: 6, color: 'BFB8AA', space: 1 } }) })));
       else if (t === 'TABLE') {
-        const rows = [...ch.querySelectorAll('tr')].map(tr => new D.TableRow({ children: [...tr.children].map(td => new D.TableCell({ children: [new D.Paragraph({ children: runs(td, td.tagName === 'TH' ? { b: !S.cfg.semNegrito } : {}), spacing: { after: 0, line: 276 } })], shading: td.tagName === 'TH' ? { type: D.ShadingType.CLEAR, fill: 'F3EFE6', color: 'auto' } : undefined, margins: { top: 60, bottom: 60, left: 100, right: 100 } })) }));
-        if (rows.length) out.push(new D.Table({ rows, width: { size: 100, type: D.WidthType.PERCENTAGE }, borders: (() => { const b = { style: D.BorderStyle.SINGLE, size: 4, color: 'CFC8BA' }; return { top: b, bottom: b, left: b, right: b, insideHorizontal: b, insideVertical: b }; })() }), new D.Paragraph({ children: [], spacing: { after: 60 } }));
+        const b = { style: D.BorderStyle.SINGLE, size: 4, color: 'CFC8BA' };
+        const rows = [...ch.querySelectorAll('tr')].map(tr => new D.TableRow({ children: [...tr.children].map(td => {
+          const bg = corHex(td.style.backgroundColor) || (td.tagName === 'TH' ? 'F3EFE6' : null);
+          return new D.TableCell({ children: blocos(td.innerHTML || '&nbsp;', { spacing: { after: 0, line: 276 } }, td.tagName === 'TH' ? { sc: true } : {}), shading: bg ? { type: D.ShadingType.CLEAR, fill: bg, color: 'auto' } : undefined, margins: { top: 60, bottom: 60, left: 100, right: 100 } });
+        }) }));
+        if (rows.length) out.push(new D.Table({ rows, width: { size: 100, type: D.WidthType.PERCENTAGE }, borders: { top: b, bottom: b, left: b, right: b, insideHorizontal: b, insideVertical: b } }), new D.Paragraph({ children: [], spacing: { after: 60 } }));
       }
-      else out.push(new D.Paragraph(Object.assign({ children: runs(ch), alignment: J }, extra)));
+      else out.push(new D.Paragraph(par(ch, base, { children: runs(ch, fBase), alignment: J })));
     }
     fechaSolto();
     return out;
   }
+  return { blocos, runs, fonte, linha };
+}
+function molduraWord(D, tipo) {
+  const e = estiloTipo(tipo); const cor = corHex(e.cor) || '1F2A44'; const fundo = corHex(e.fundo);
+  const sh = fundo && fundo !== 'FFFFFF' ? { shading: { type: D.ShadingType.CLEAR, fill: fundo, color: 'auto' } } : {};
+  const lado = (tam, estilo = D.BorderStyle.SINGLE) => ({ style: estilo, size: tam, color: cor, space: 6 });
+  const ind = { indent: { left: 170, right: 170 } };
+  switch (e.forma) {
+    case 'barra': return Object.assign({ border: { left: lado(18) } }, sh, ind);
+    case 'nota': return Object.assign({ border: { left: lado(36) } }, sh, ind);
+    case 'caixa': return Object.assign({ border: { top: lado(6), bottom: lado(6), left: lado(6), right: lado(6) } }, sh, ind);
+    case 'tracejada': return Object.assign({ border: { top: lado(6, D.BorderStyle.DASHED), bottom: lado(6, D.BorderStyle.DASHED), left: lado(6, D.BorderStyle.DASHED), right: lado(6, D.BorderStyle.DASHED) } }, sh, ind);
+    default: return {};
+  }
+}
 
-  /* ---- documento ---- */
-  const mod = modeloDoc(disc, lente, opts);
+/** gera o .docx de um ponto */
+async function docxPonto(disc, lente, pid, seq) {
+  const D = docx; const e = edital(lente); const C = conversorWord(D);
+  const tam = Math.round((S.cfg.tamDoc || 12) * 2);
+  const itens = itensDoPonto(disc, lente, pid);
+  const x = pid === '__sem' ? null : PONTO.get(pid);
+  const corEd = (corHex(e.cor) || '1F2A44');
   const filhos = [];
-  filhos.push(new D.Paragraph({ children: [new D.TextRun({ text: 'Caderno sistematizado · edital ' + e.sigla, smallCaps: true, color: '6B6457', size: 22 })], spacing: { before: 2400, after: 120 } }));
-  filhos.push(new D.Paragraph({ text: discNome(disc), style: 'Title' }));
-  filhos.push(new D.Paragraph({ children: [new D.TextRun({ text: e.nome, color: '6B6457', size: 22 })], spacing: { after: 60 } }));
-  filhos.push(new D.Paragraph({ children: [new D.TextRun({ text: 'Versão de ' + fmtData(now()), color: '6B6457', size: 22 })], spacing: { after: 600 } }));
-  filhos.push(new D.Paragraph({ children: [new D.TextRun({ text: 'Sumário', smallCaps: true, size: 28, color: '1F2A44' })], spacing: { after: 120 } }));
-  filhos.push(new D.TableOfContents('Sumário', { hyperlink: true, headingStyleRange: '1-2' }));
-  filhos.push(new D.Paragraph({ children: [new D.TextRun({ text: 'Se o sumário aparecer vazio, clique nele com o botão direito e escolha "Atualizar campo".', italics: true, size: 18, color: '9A9386' })] }));
-  filhos.push(new D.Paragraph({ children: [new D.PageBreak()] }));
-
-  const blocoItens = (itens) => {
-    for (const g of agrupa(itens)) {
-      filhos.push(new D.Paragraph({ text: g.h3, heading: D.HeadingLevel.HEADING_2 }));
-      for (const x of g.grupos) {
-        if (x.h4) filhos.push(new D.Paragraph({ text: x.h4, heading: D.HeadingLevel.HEADING_3 }));
-        for (const it of x.itens) {
-          const tr = [new D.TextRun({ text: it.titulo || TIPO_CURTO[it.tipo], smallCaps: true })];
-          if (!refRedundante(it)) tr.push(new D.TextRun({ text: '   ' + it.ref, color: '6B6457', size: tam - 3 }));
-          if (it.estrela) tr.push(new D.TextRun({ text: '  ★', color: 'B8860B' }));
-          if (it.divergeDe) tr.push(new D.TextRun({ text: '  [divergência' + (it.notaDiv ? ': ' + it.notaDiv : '') + ']', color: 'A2372B', size: tam - 4 }));
-          filhos.push(new D.Paragraph({ children: tr, style: 'ItemTitulo' }));
-          filhos.push(...blocos(it.html));
-        }
+  filhos.push(new D.Paragraph({ children: [new D.TextRun({ text: `${discNome(disc)} · edital ${e.sigla}${x && x.p.sec ? ' · ' + x.p.sec : ''}`, smallCaps: true, color: '6B6457', size: 20 })], spacing: { after: 60 } }));
+  filhos.push(new D.Paragraph({ children: [new D.TextRun({ text: x ? 'Ponto ' + rotuloPonto(x.p) : 'Sem ponto', smallCaps: true, color: corEd })], style: 'Title' }));
+  filhos.push(new D.Paragraph({ children: [new D.TextRun({ text: x ? tituloPonto(x.p) : 'Material sem correspondência neste edital', size: 30, color: '1F2A44' })], spacing: { after: 120 } }));
+  if (x && semAcento(x.p.t).replace(/[.;:\s]+$/, '') !== semAcento(tituloPonto(x.p))) filhos.push(new D.Paragraph({ text: x.p.t, style: 'Ementa' }));
+  const eqs = x ? equivalencias(pid, itens) : [];
+  filhos.push(new D.Paragraph({ children: [new D.TextRun({ text: `${itens.length} item(ns) · versão de ${fmtData(now())}${eqs.length ? ' · corresponde a ' + eqs.map(q => { const y = PONTO.get(q); return y.e.sigla + ' ' + rotuloPonto(y.p); }).join(', ') : ''}`, size: 18, color: '9A9386' })], border: { bottom: { style: D.BorderStyle.SINGLE, size: 4, color: 'D7D2C8', space: 6 } }, spacing: { after: 240 } }));
+  for (const g of agrupa(itens)) {
+    const cg = g.tipo ? corHex(estiloTipo(g.tipo).cor) : '8A5A14';
+    filhos.push(new D.Paragraph({ children: [new D.TextRun({ text: g.h3, color: cg, smallCaps: true })], heading: D.HeadingLevel.HEADING_2 }));
+    for (const s of g.grupos) {
+      if (s.h4) filhos.push(new D.Paragraph({ children: [new D.TextRun({ text: s.h4, color: s.tipo ? corHex(estiloTipo(s.tipo).cor) : '2F3B55', italics: true })], heading: D.HeadingLevel.HEADING_3 }));
+      for (const it of s.itens) {
+        const est = estiloTipo(it.tipo); const cor = corHex(est.cor) || '1F2A44';
+        const mold = molduraWord(D, it.tipo);
+        const tr = [new D.TextRun({ text: TIPO_CURTO[it.tipo].toUpperCase(), color: cor, size: tam - 6, characterSpacing: 20 })];
+        if (it.titulo) tr.push(new D.TextRun({ text: '   ' + it.titulo, smallCaps: true, color: '2C2C2C' }));
+        if (!refRedundante(it)) tr.push(new D.TextRun({ text: '   ' + it.ref, color: '6B6457', size: tam - 3 }));
+        if (it.estrela) tr.push(new D.TextRun({ text: '  ★', color: 'B8860B' }));
+        if (it.divergeDe) tr.push(new D.TextRun({ text: '  [divergência' + (it.notaDiv ? ': ' + it.notaDiv : '') + ']', color: 'A2372B', size: tam - 4 }));
+        filhos.push(new D.Paragraph(Object.assign({}, mold, { children: tr, keepNext: true, spacing: { before: 200, after: 60 } })));
+        filhos.push(...C.blocos(it.html, Object.assign({}, mold, { spacing: { after: 100, line: C.linha } }), { corTitulo: cor }));
+        filhos.push(new D.Paragraph({ children: [], spacing: { after: 60 } }));
       }
     }
-  };
-  let secAnt = null;
-  for (const s of mod.secoes) {
-    const p = s.ponto; const nota = S.notas.get(p.id); const temNota = nota && textoPlano(nota.html);
-    if (opts.soComMaterial && !s.itens.length && !temNota) continue;
-    if (p.sec && p.sec !== secAnt) { filhos.push(new D.Paragraph({ children: [new D.TextRun({ text: p.sec, smallCaps: true, color: '6B6457', size: 26 })], spacing: { before: 480, after: 120 }, keepNext: true })); secAnt = p.sec; }
-    filhos.push(new D.Paragraph({ children: [new D.TextRun({ text: 'Ponto ' + rotuloPonto(p) + '  ', smallCaps: true, color: e.cor.replace('#', '') }), new D.TextRun({ text: tituloPonto(p) })], heading: D.HeadingLevel.HEADING_1 }));
-    if (semAcento(p.t).replace(/[.;:\s]+$/, '') !== semAcento(tituloPonto(p))) filhos.push(new D.Paragraph({ text: p.t, style: 'Ementa' }));
-    if (!s.itens.length && !temNota) filhos.push(new D.Paragraph({ children: [new D.TextRun({ text: 'Nenhum material neste ponto.', italics: true, color: 'A39C8E' })] }));
-    blocoItens(s.itens);
-    if (temNota) { filhos.push(new D.Paragraph({ children: [new D.TextRun({ text: 'Anotações do ponto', smallCaps: true, color: '8A7B55' })], spacing: { before: 200, after: 60 }, keepNext: true })); filhos.push(...blocos(nota.html, { style: 'Nota' })); }
   }
-  if (mod.semPonto.length) {
-    filhos.push(new D.Paragraph({ children: [new D.TextRun({ text: 'Sem ponto  ', smallCaps: true, color: '8A8375' }), new D.TextRun({ text: 'Material sem correspondência no edital ' + e.sigla })], heading: D.HeadingLevel.HEADING_1 }));
-    blocoItens(mod.semPonto);
+  if (!itens.length) filhos.push(new D.Paragraph({ children: [new D.TextRun({ text: 'Nenhum material neste ponto.', italics: true, color: 'A39C8E' })] }));
+  const nota = S.notas.get(pid);
+  if (nota && textoPlano(nota.html)) {
+    filhos.push(new D.Paragraph({ children: [new D.TextRun({ text: 'Anotações do ponto', smallCaps: true, color: '8A7B55' })], heading: D.HeadingLevel.HEADING_2 }));
+    filhos.push(...C.blocos(nota.html, molduraWord(D, 'anotacao')));
   }
-
-  const cor = '1F2A44';
   const doc = new D.Document({
-    creator: 'Cátedra', title: discNome(disc) + ' — ' + e.sigla, description: 'Caderno sistematizado',
-    features: { updateFields: true },
+    creator: 'Cátedra', title: `${e.sigla} — ${discNome(disc)} — ${x ? 'Ponto ' + rotuloPonto(x.p) : 'Sem ponto'}`,
     styles: {
       default: {
-        document: { run: { font: fonte, size: tam }, paragraph: { spacing: { after: 120, line: linha } } },
-        title: { run: { font: fonte, size: 56, color: cor, smallCaps: true, bold: false }, paragraph: { spacing: { after: 160 } } },
-        heading1: { run: { font: fonte, size: 30, color: cor, bold: false }, paragraph: { spacing: { before: 480, after: 80 }, keepNext: true, border: { top: { style: D.BorderStyle.SINGLE, size: 4, color: 'E6E1D7', space: 8 } } } },
-        heading2: { run: { font: fonte, size: 25, color: '8A5A14', smallCaps: true, bold: false }, paragraph: { spacing: { before: 280, after: 100 }, keepNext: true, border: { bottom: { style: D.BorderStyle.SINGLE, size: 4, color: 'EFE7D6', space: 2 } } } },
-        heading3: { run: { font: fonte, size: 24, color: '2F3B55', italics: true, bold: false }, paragraph: { spacing: { before: 200, after: 60 }, keepNext: true } },
+        document: { run: { font: C.fonte, size: tam }, paragraph: { spacing: { after: 120, line: C.linha } } },
+        title: { run: { font: C.fonte, size: 52, color: '1F2A44', bold: false }, paragraph: { spacing: { after: 40 } } },
+        heading2: { run: { font: C.fonte, size: 26, bold: false }, paragraph: { spacing: { before: 320, after: 120 }, keepNext: true, border: { bottom: { style: D.BorderStyle.SINGLE, size: 4, color: 'E6E1D7', space: 2 } } } },
+        heading3: { run: { font: C.fonte, size: 24, bold: false }, paragraph: { spacing: { before: 200, after: 60 }, keepNext: true } },
       },
       paragraphStyles: [
-        { id: 'Ementa', name: 'Ementa do ponto', basedOn: 'Normal', run: { italics: true, size: 20, color: '6B6457' }, paragraph: { alignment: J, spacing: { after: 160, line: 264 } } },
-        { id: 'ItemTitulo', name: 'Título do item', basedOn: 'Normal', run: { color: '2C2C2C' }, paragraph: { keepNext: true, spacing: { before: 160, after: 40 } } },
-        { id: 'Citacao', name: 'Citação recuada', basedOn: 'Normal', run: { size: tam - 2 }, paragraph: { indent: { left: 1134 }, alignment: J, spacing: { after: 100, line: 276 } } },
-        { id: 'Nota', name: 'Anotação do ponto', basedOn: 'Normal', paragraph: { indent: { left: 284 }, border: { left: { style: D.BorderStyle.SINGLE, size: 12, color: 'C9B98F', space: 8 } }, shading: { type: D.ShadingType.CLEAR, fill: 'FCFAF3', color: 'auto' } } },
+        { id: 'Ementa', name: 'Ementa do ponto', basedOn: 'Normal', run: { italics: true, size: 20, color: '6B6457' }, paragraph: { alignment: D.AlignmentType.JUSTIFIED, spacing: { after: 120, line: 264 } } },
       ],
     },
     numbering: { config: [{ reference: 'num', levels: [
@@ -1720,14 +2049,15 @@ async function exportaDocx(disc, lente, opts) {
     ] }] },
     sections: [{
       properties: { page: { size: { width: 11906, height: 16838 }, margin: { top: 1418, bottom: 1418, left: 1701, right: 1134 } } },
-      headers: { default: new D.Header({ children: [new D.Paragraph({ alignment: D.AlignmentType.RIGHT, children: [new D.TextRun({ text: discNome(disc) + ' · ' + e.sigla, smallCaps: true, size: 18, color: '9A9386' })] })] }) },
+      headers: { default: new D.Header({ children: [new D.Paragraph({ alignment: D.AlignmentType.RIGHT, children: [new D.TextRun({ text: `${discNome(disc)} · ${e.sigla} · ${x ? 'Ponto ' + rotuloPonto(x.p) : 'Sem ponto'}`, smallCaps: true, size: 18, color: '9A9386' })] })] }) },
       footers: { default: new D.Footer({ children: [new D.Paragraph({ alignment: D.AlignmentType.CENTER, children: [new D.TextRun({ children: [D.PageNumber.CURRENT], size: 20, color: '6B6457' })] })] }) },
       children: filhos,
     }],
   });
   const blob = await D.Packer.toBlob(doc);
-  baixa(blob, nomeArq(`Cátedra - ${discNome(disc)} - ${e.sigla} - ${fmtData(now()).replace(/\//g, '-')}.docx`));
-  toast('Arquivo Word gerado.');
+  const num = x ? rotuloPonto(x.p).replace(/^(\d)(?!\d)/, '0$1') : 'sem ponto';
+  const tit = x ? ' - ' + tituloPonto(x.p).slice(0, 60).replace(/…$/, '') : '';
+  return { blob, nome: nomeArq(`${e.sigla} - ${discNome(disc)} - ${x ? 'Ponto ' + num : 'Sem ponto'}${tit.replace(/[.\s]+$/, '')}.docx`) };
 }
 
 /* =========================================================
@@ -2038,6 +2368,14 @@ function viewConfig() {
       <div><label class="f">Entrelinhas</label><select class="in" id="eDoc">${[[1, 'Simples'], [1.15, '1,15'], [1.5, '1,5'], [2, 'Duplo']].map(([v, n]) => `<option value="${v}" ${c.entrelinha == v ? 'selected' : ''}>${n}</option>`).join('')}</select></div>
     </div></div>
 
+    <h2 class="sec">Aparência por tipo de conteúdo</h2>
+    <div class="card setsec"><p class="small muted" style="margin-top:0">Cada tipo tem cor, fundo e moldura próprios, aplicados no caderno, no PDF e no Word.</p>
+      <div class="estilos-t"><b class="small">Tipo</b><b class="small">Cor</b><b class="small">Fundo</b><b class="small">Moldura</b>
+      ${TIPOS.map(([k, n]) => { const e = estiloTipo(k); return `<div class="page" style="all:unset"><div class="it f-${e.forma} amostra" data-am="${k}" style="${cssEstiloTipo(k)};margin:0"><span style="font:600 8.5pt var(--ui);letter-spacing:.08em;text-transform:uppercase;color:var(--tc)">${h(TIPO_CURTO[k])}</span> ${h(n)}</div></div>
+        <input type="color" data-est="${k}" data-p="cor" value="${e.cor}"><input type="color" data-est="${k}" data-p="fundo" value="${e.fundo}">
+        <select class="in" data-est="${k}" data-p="forma">${Object.entries(FORMAS).map(([f, fn]) => `<option value="${f}" ${e.forma === f ? 'selected' : ''}>${fn}</option>`).join('')}</select>`; }).join('')}
+      </div><div class="row" style="margin-top:10px"><button class="btn sm" id="estReset">Restaurar padrões</button></div></div>
+
     <h2 class="sec">Sincronização entre PC, tablet e celular (GitHub)</h2>
     <div class="card setsec">
       <p class="small muted" style="margin-top:0">O material é gravado em um arquivo JSON dentro de um repositório seu. Use um repositório <b>privado</b> separado do site (ex.: <i>catedra-dados</i>) e um token fine-grained com permissão <i>Contents: Read and write</i> apenas nele. Configure o mesmo em cada dispositivo.</p>
@@ -2075,6 +2413,11 @@ function viewConfig() {
     b.disabled = false; b.textContent = 'Listar';
   });
   $('#semNeg').onchange = (e) => { c.semNegrito = e.target.checked; salvaCfg(); };
+  $$('[data-est]').forEach(el => el.oninput = el.onchange = () => {
+    const k = el.dataset.est; c.estilos = c.estilos || {}; c.estilos[k] = Object.assign({}, c.estilos[k] || {}, { [el.dataset.p]: el.value }); salvaCfg();
+    const am = $(`[data-am="${k}"]`); const e = estiloTipo(k); am.className = `it f-${e.forma} amostra`; am.setAttribute('style', cssEstiloTipo(k) + ';margin:0');
+  });
+  $('#estReset').onclick = () => { c.estilos = {}; salvaCfg(); viewConfig(); };
   $('#fDoc').onchange = (e) => { c.fonteDoc = e.target.value; salvaCfg(); };
   $('#tDoc').onchange = (e) => { c.tamDoc = +e.target.value || 12; salvaCfg(); };
   $('#eDoc').onchange = (e) => { c.entrelinha = +e.target.value; salvaCfg(); };

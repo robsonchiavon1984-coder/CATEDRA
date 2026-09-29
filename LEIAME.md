@@ -40,11 +40,13 @@ Informe a chave em Configurações. Em "Listar" você vê os modelos disponívei
 
 ## 4. Fluxo de uso
 
-1. Inserir material: cole o texto ou envie PDF, Word, TXT ou HTML. Indique a disciplina (ou deixe a IA detectar) e, se quiser, uma orientação ("tudo é jurisprudência do STJ").
-2. A IA recorta o conteúdo em unidades, classifica tipo, assunto e ponto em cada edital, e compara com o que você já tem (busca local por semelhança + mesma súmula/tema/enunciado).
-3. Triagem: cada unidade vem marcada como Novo, Complementa, Diverge ou Repetido, com a decisão sugerida (incluir, mesclar a informação nova no item existente, substituir ou descartar). Você altera título, referência, assunto, disciplina, pontos, texto e decisão; depois clica em "Aplicar decisões".
-4. Caderno: escolha a disciplina e a lente do edital (TJSC, TRF5 ou TJRS, no alto). O documento segue a ordem dos pontos; dentro de cada ponto, agrupa por tipo e assunto (ou por assunto e tipo). Clique no texto para editar; a barra traz itálico, sublinhado, marca-texto, listas e citação recuada. Cada item tem classificação, destaque e exclusão.
-5. Exportar: botões Word e PDF (disciplina inteira, só pontos com material, ponto atual ou pontos escolhidos). O Word sai com sumário automático: se aparecer vazio, clique com o botão direito sobre ele e escolha "Atualizar campo".
+1. Inserir material (menu lateral): cole o texto ou envie PDF, Word, TXT ou HTML. Indique a disciplina (ou deixe a IA detectar) e, se quiser, uma orientação ("tudo é jurisprudência do STJ").
+2. Ou, direto no ponto: abra a disciplina, escolha o ponto e clique em "Analisar neste ponto" (barra superior do documento). A IA trata todo o material como pertencente àquele ponto e indica também os pontos equivalentes nos outros editais.
+3. A IA recorta o conteúdo em unidades, classifica tipo, assunto e ponto, e compara com o que você já tem (busca local por semelhança + mesma súmula/tema/enunciado).
+4. Triagem: cada unidade vem marcada como Novo, Complementa, Diverge ou Repetido, com a decisão sugerida (incluir, mesclar a informação nova no item existente, substituir ou descartar). Ajuste o que quiser e clique em "Aplicar decisões". Se a análise foi feita no ponto, você volta para ele.
+5. Caderno: cada ponto do edital é um documento próprio (A4, Cambria 12). Navegue pela lista à esquerda ou pelas setas ‹ ›. Os itens seguem formatação por tipo (lei, súmula, tema, jurisprudência, enunciado, doutrina, questão, anotação), configurável em Configurações → Aparência por tipo de conteúdo.
+6. Edição: clique no texto. A barra traz desfazer/refazer, fonte, tamanho em pontos, negrito, itálico, sublinhado, tachado, sobrescrito, subscrito, cor do texto, realce, cor de fundo do parágrafo, alinhamentos, listas, recuo, citação recuada, subtítulo, tabela, linha horizontal e limpar formatação. Cada item pode ser reclassificado, reordenado (↑ ↓), movido para outro ponto, destacado com estrela, duplicado ou excluído.
+7. Exportar: Word e PDF do ponto atual; ou todos os pontos (ou só os com material, ou os escolhidos) em Word, um arquivo por ponto dentro de um .zip, e em PDF, um ponto por página. Toda a formatação (cores, realces, tamanhos, molduras por tipo) vai para o Word e para o PDF.
 
 Leis penais especiais, execução penal e leis civis especiais têm disciplinas próprias; nos editais em que não são disciplinas autônomas, elas mostram os pontos correspondentes de Penal, Processo Penal e Civil (ex.: TJSC, Penal, pontos 50 a 79).
 
